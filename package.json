@@ -10,7 +10,8 @@
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "deploy": "vercel --prod",
-    "deploy:preview": "vercel"
+    "deploy:preview": "vercel",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -36,7 +37,7 @@
     "jose": "^5.9.6",
     "jspdf": "^3.0.2",
     "lucide-react": "^0.454.0",
-    "next": "^15.5.2",
+    "next": "15.5.2",
     "nodemailer": "^6.9.16",
     "react": "18.3.1",
     "react-dom": "18.3.1",
