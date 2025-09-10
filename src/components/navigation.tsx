@@ -130,14 +130,4 @@ export function Navigation({ onItemClick }: NavigationProps) {
       })}
     </nav>
   );
-}                  {item.step}.
-                </span>
-              )}
-              <span className="truncate">{t(item.name)}</span>
-            </div>
-          </Link>
-        );
-      })}
-    </nav>
-  );
 }

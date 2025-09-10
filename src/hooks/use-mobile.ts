@@ -37,4 +37,4 @@ export function useMobile() {
     isLandscape: () => screenSize.width > screenSize.height,
     isPortrait: () => screenSize.height > screenSize.width,
   };
-}"
+}
