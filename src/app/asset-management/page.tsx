@@ -140,6 +140,8 @@ export default function AssetManagementPage() {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [assets] = useState<Asset[]>(sampleAssets);
 
+  // ... rest of component implementation ...
+
   const getConditionBadge = (condition: string) => {
     switch (condition) {
       case "excellent":
