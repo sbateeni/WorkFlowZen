@@ -36,6 +36,18 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
 }
 
 
+// Validate ../../src/app/accounting-transfer/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/accounting-transfer/page.js")
+  handler satisfies AppPageConfig<"/accounting-transfer">
+}
+
+// Validate ../../src/app/audit-trail/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/audit-trail/page.js")
+  handler satisfies AppPageConfig<"/audit-trail">
+}
+
 // Validate ../../src/app/consultation/page.tsx
 {
   const handler = {} as typeof import("../../src/app/consultation/page.js")
@@ -54,10 +66,46 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   handler satisfies AppPageConfig<"/data-entry">
 }
 
+// Validate ../../src/app/invoice-receipt/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/invoice-receipt/page.js")
+  handler satisfies AppPageConfig<"/invoice-receipt">
+}
+
 // Validate ../../src/app/page.tsx
 {
   const handler = {} as typeof import("../../src/app/page.js")
   handler satisfies AppPageConfig<"/">
+}
+
+// Validate ../../src/app/payment-approval/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/payment-approval/page.js")
+  handler satisfies AppPageConfig<"/payment-approval">
+}
+
+// Validate ../../src/app/payment-request/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/payment-request/page.js")
+  handler satisfies AppPageConfig<"/payment-request">
+}
+
+// Validate ../../src/app/purchase-order/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/purchase-order/page.js")
+  handler satisfies AppPageConfig<"/purchase-order">
+}
+
+// Validate ../../src/app/service-delivery/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/service-delivery/page.js")
+  handler satisfies AppPageConfig<"/service-delivery">
+}
+
+// Validate ../../src/app/service-request/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/service-request/page.js")
+  handler satisfies AppPageConfig<"/service-request">
 }
 
 
