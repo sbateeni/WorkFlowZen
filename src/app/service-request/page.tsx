@@ -419,8 +419,8 @@ export default function ServiceRequestPage() {
                         <Checkbox
                           id={requirement}
                           checked={formData.requirements.includes(requirement)}
-                          onCheckedChange={(checked) => 
-                            handleRequirementChange(requirement, checked as boolean)
+                          onCheckedChange={(checked: boolean) => 
+                            handleRequirementChange(requirement, checked)
                           }
                         />
                         <Label 

@@ -489,7 +489,7 @@ export default function PaymentRequestPage() {
                       <Checkbox
                         id="supportingDocuments"
                         checked={formData.supportingDocuments}
-                        onCheckedChange={(checked) => handleInputChange("supportingDocuments", checked as boolean)}
+                        onCheckedChange={(checked: boolean) => handleInputChange("supportingDocuments", checked)}
                       />
                       <Label htmlFor="supportingDocuments" className="text-sm font-normal cursor-pointer">
                         تم إرفاق المستندات الداعمة
@@ -499,7 +499,7 @@ export default function PaymentRequestPage() {
                       <Checkbox
                         id="taxDeductible"
                         checked={formData.taxDeductible}
-                        onCheckedChange={(checked) => handleInputChange("taxDeductible", checked as boolean)}
+                        onCheckedChange={(checked: boolean) => handleInputChange("taxDeductible", checked)}
                       />
                       <Label htmlFor="taxDeductible" className="text-sm font-normal cursor-pointer">
                         قابل للخصم الضريبي

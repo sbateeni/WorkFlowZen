@@ -353,7 +353,7 @@ export default function ServiceDeliveryPage() {
                       <Checkbox
                         id="clientSignature"
                         checked={formData.clientSignature}
-                        onCheckedChange={(checked) => handleInputChange("clientSignature", checked as boolean)}
+                        onCheckedChange={(checked: boolean) => handleInputChange("clientSignature", checked)}
                       />
                       <Label htmlFor="clientSignature" className="text-sm font-normal cursor-pointer">
                         تم الحصول على توقيع العميل
@@ -363,7 +363,7 @@ export default function ServiceDeliveryPage() {
                       <Checkbox
                         id="photosUploaded"
                         checked={formData.photosUploaded}
-                        onCheckedChange={(checked) => handleInputChange("photosUploaded", checked as boolean)}
+                        onCheckedChange={(checked: boolean) => handleInputChange("photosUploaded", checked)}
                       />
                       <Label htmlFor="photosUploaded" className="text-sm font-normal cursor-pointer">
                         تم رفع صور العمل المنجز
@@ -373,7 +373,7 @@ export default function ServiceDeliveryPage() {
                       <Checkbox
                         id="followUpRequired"
                         checked={formData.followUpRequired}
-                        onCheckedChange={(checked) => handleInputChange("followUpRequired", checked as boolean)}
+                        onCheckedChange={(checked: boolean) => handleInputChange("followUpRequired", checked)}
                       />
                       <Label htmlFor="followUpRequired" className="text-sm font-normal cursor-pointer">
                         يحتاج متابعة لاحقة

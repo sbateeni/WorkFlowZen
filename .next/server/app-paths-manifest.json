@@ -1,1 +1,19 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/accounting-transfer/page": "app/accounting-transfer/page.js",
+  "/analytics/page": "app/analytics/page.js",
+  "/asset-management/page": "app/asset-management/page.js",
+  "/audit-trail/page": "app/audit-trail/page.js",
+  "/consultation/page": "app/consultation/page.js",
+  "/contract-management/page": "app/contract-management/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/data-entry/page": "app/data-entry/page.js",
+  "/employee-portal/page": "app/employee-portal/page.js",
+  "/invoice-receipt/page": "app/invoice-receipt/page.js",
+  "/page": "app/page.js",
+  "/payment-approval/page": "app/payment-approval/page.js",
+  "/payment-request/page": "app/payment-request/page.js",
+  "/purchase-order/page": "app/purchase-order/page.js",
+  "/service-delivery/page": "app/service-delivery/page.js",
+  "/service-request/page": "app/service-request/page.js"
+}
