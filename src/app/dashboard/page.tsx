@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-context";
+import { useMobile } from "@/hooks/use-mobile";
 
 const workflowSteps = [
   {
@@ -133,37 +134,38 @@ const getStatusIcon = (status: string) => {
 
 export default function DashboardPage() {
   const { t, isRTL } = useLanguage();
+  const { isMobile } = useMobile();
   
   const completedSteps = workflowSteps.filter(step => step.status === "completed").length;
   const progressPercentage = (completedSteps / workflowSteps.length) * 100;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">{t("dashboard")}</h1>
-          <p className="text-muted-foreground mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold">{t("dashboard")}</h1>
+          <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
             نظام إدارة سير العمل - تتبع ومراقبة جميع العمليات
           </p>
         </div>
       </div>
 
       {/* Progress Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-500" />
-            تقدم سير العمل - Workflow Progress
+      <Card className="mobile-card">
+        <CardHeader className="pb-3 sm:pb-6">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+            <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />
+            <span className="truncate">تقدم سير العمل - Workflow Progress</span>
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-sm">
             مراحل العمل المكتملة: {completedSteps} من {workflowSteps.length}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <Progress value={progressPercentage} className="h-3" />
-            <div className="flex justify-between text-sm text-muted-foreground">
+          <div className="space-y-3 sm:space-y-4">
+            <Progress value={progressPercentage} className="h-2 sm:h-3" />
+            <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
               <span>البداية</span>
               <span>{Math.round(progressPercentage)}% مكتمل</span>
               <span>النهاية</span>
@@ -173,60 +175,64 @@ export default function DashboardPage() {
       </Card>
 
       {/* Workflow Steps */}
-      <div className="grid gap-4">
-        <h2 className="text-2xl font-semibold">خطوات سير العمل - Workflow Steps</h2>
+      <div className="grid gap-3 sm:gap-4">
+        <h2 className="text-xl sm:text-2xl font-semibold">خطوات سير العمل - Workflow Steps</h2>
         
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {workflowSteps.map((step, index) => {
             const Icon = step.icon;
             const StatusIcon = getStatusIcon(step.status);
             
             return (
               <Card key={step.id} className={`
-                transition-all hover:shadow-md
-                ${step.status === "current" ? "ring-2 ring-primary" : ""}
+                mobile-card transition-all hover:shadow-md
+                ${step.status === "current" ? "ring-1 sm:ring-2 ring-primary" : ""}
                 ${step.status === "completed" ? "bg-green-50 border-green-200" : ""}
               `}>
-                <CardHeader className="pb-3">
+                <CardHeader className="pb-2 sm:pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Icon className="h-5 w-5 text-primary" />
-                      <span className="text-sm font-medium">خطوة {step.id}</span>
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      <span className="text-xs sm:text-sm font-medium">خطوة {step.id}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <StatusIcon className={`h-4 w-4 ${
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <StatusIcon className={`h-3 w-3 sm:h-4 sm:w-4 ${
                         step.status === "completed" ? "text-green-500" :
                         step.status === "current" ? "text-blue-500" :
                         "text-gray-400"
                       }`} />
-                      <Badge variant={getStatusVariant(step.status)} className="text-xs">
+                      <Badge variant={getStatusVariant(step.status)} className="text-xs px-1 py-0 sm:px-2">
                         {step.status === "completed" ? "مكتمل" :
                          step.status === "current" ? "جاري" : "معلق"}
                       </Badge>
                     </div>
                   </div>
-                  <CardTitle className="text-lg">{t(step.name)}</CardTitle>
+                  <CardTitle className="text-base sm:text-lg">{t(step.name)}</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <CardDescription className="mb-4">
-                    {step.description}
+                  <CardDescription className="mb-3 sm:mb-4 text-sm">
+                    {isMobile ? step.description.substring(0, 50) + '...' : step.description}
                   </CardDescription>
                   
                   {step.completedAt && (
-                    <p className="text-xs text-green-600 mb-3">
+                    <p className="text-xs text-green-600 mb-2 sm:mb-3">
                       مكتمل في: {step.completedAt}
                     </p>
                   )}
                   
                   <Link href={step.href}>
                     <Button 
-                      className="w-full" 
+                      className="w-full mobile-button" 
                       variant={step.status === "current" ? "default" : "outline"}
-                      size="sm"
+                      size={isMobile ? "default" : "sm"}
                     >
-                      {step.status === "completed" ? "عرض" : 
-                       step.status === "current" ? "متابعة" : "ابدأ"}
-                      <ArrowRight className={`h-4 w-4 ${isRTL ? "mr-2 rotate-180" : "ml-2"}`} />
+                      <span className="truncate">
+                        {step.status === "completed" ? "عرض" : 
+                         step.status === "current" ? "متابعة" : "ابدأ"}
+                      </span>
+                      <ArrowRight className={`h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0 ${
+                        isRTL ? "mr-1 sm:mr-2 rotate-180" : "ml-1 sm:ml-2"
+                      }`} />
                     </Button>
                   </Link>
                 </CardContent>
@@ -237,45 +243,45 @@ export default function DashboardPage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">المهام المكتملة</CardTitle>
+      <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-4">
+        <Card className="mobile-card">
+          <CardHeader className="pb-1 sm:pb-2">
+            <CardTitle className="text-xs sm:text-sm font-medium truncate">المهام المكتملة</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{completedSteps}</div>
+            <div className="text-xl sm:text-2xl font-bold text-green-600">{completedSteps}</div>
             <p className="text-xs text-muted-foreground">من أصل {workflowSteps.length}</p>
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">المهام المعلقة</CardTitle>
+        <Card className="mobile-card">
+          <CardHeader className="pb-1 sm:pb-2">
+            <CardTitle className="text-xs sm:text-sm font-medium truncate">المهام المعلقة</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-xl sm:text-2xl font-bold text-orange-600">
               {workflowSteps.filter(s => s.status === "pending").length}
             </div>
             <p className="text-xs text-muted-foreground">في الانتظار</p>
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">المهمة الحالية</CardTitle>
+        <Card className="mobile-card">
+          <CardHeader className="pb-1 sm:pb-2">
+            <CardTitle className="text-xs sm:text-sm font-medium truncate">المهمة الحالية</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">2</div>
-            <p className="text-xs text-muted-foreground">إدخال البيانات</p>
+            <div className="text-xl sm:text-2xl font-bold text-blue-600">2</div>
+            <p className="text-xs text-muted-foreground truncate">إدخال البيانات</p>
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">نسبة الإنجاز</CardTitle>
+        <Card className="mobile-card">
+          <CardHeader className="pb-1 sm:pb-2">
+            <CardTitle className="text-xs sm:text-sm font-medium truncate">نسبة الإنجاز</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">
+            <div className="text-xl sm:text-2xl font-bold text-primary">
               {Math.round(progressPercentage)}%
             </div>
             <p className="text-xs text-muted-foreground">مكتمل</p>

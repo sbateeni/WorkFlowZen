@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
 import { useToast } from "@/hooks/use-toast";
+import { useMobile } from "@/hooks/use-mobile";
 
 interface DocumentData {
   title: string;
@@ -93,6 +94,7 @@ const sampleDocuments: Document[] = [
 export default function DataEntryPage() {
   const { t, isRTL } = useLanguage();
   const { toast } = useToast();
+  const { isMobile } = useMobile();
   const [isUploading, setIsUploading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -201,8 +203,7 @@ export default function DataEntryPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto px-4 py-8 space-y-6">
+    <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex items-center gap-3">
           <FileText className="h-8 w-8 text-primary" />
@@ -214,21 +215,21 @@ export default function DataEntryPage() {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {/* Document Upload Form */}
           <div className="lg:col-span-1">
-            <Card>
+            <Card className="mobile-card">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Upload className="h-5 w-5" />
-                  رفع مستند جديد
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <Upload className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className={isMobile ? "truncate" : ""}>رفع مستند جديد</span>
                 </CardTitle>
                 <CardDescription>
                   أضف مستندًا جديدًا إلى قاعدة البيانات
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="mobile-form space-y-3 sm:space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="title">عنوان المستند *</Label>
                     <Input
@@ -293,7 +294,7 @@ export default function DataEntryPage() {
                     </p>
                   </div>
 
-                  <Button type="submit" disabled={isUploading} className="w-full">
+                  <Button type="submit" disabled={isUploading} className="w-full mobile-button">
                     {isUploading ? (
                       <>
                         <Upload className="mr-2 h-4 w-4 animate-spin" />
@@ -313,16 +314,16 @@ export default function DataEntryPage() {
 
           {/* Documents Management */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="mobile-card">
               <CardHeader>
-                <CardTitle>إدارة المستندات</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">إدارة المستندات</CardTitle>
                 <CardDescription>
                   البحث والإدارة لجميع المستندات المرفوعة
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4">
                 {/* Search and Filter */}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                   <div className="flex-1">
                     <div className="relative">
                       <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -334,7 +335,7 @@ export default function DataEntryPage() {
                       />
                     </div>
                   </div>
-                  <div className="w-48">
+                  <div className="w-full sm:w-48">
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
@@ -351,8 +352,9 @@ export default function DataEntryPage() {
                 </div>
 
                 {/* Documents Table */}
-                <div className="border rounded-lg">
-                  <Table>
+                <div className="border rounded-lg overflow-hidden">
+                  <div className="overflow-x-auto mobile-scroll">
+                    <Table className={isMobile ? "mobile-table" : ""}>
                     <TableHeader>
                       <TableRow>
                         <TableHead>المستند</TableHead>
@@ -371,9 +373,9 @@ export default function DataEntryPage() {
                             <div className="flex items-start gap-2">
                               {getFileIcon(doc.fileType)}
                               <div>
-                                <p className="font-medium text-sm">{doc.title}</p>
-                                <p className="text-xs text-muted-foreground truncate max-w-[200px]">
-                                  {doc.description}
+                                <p className="font-medium text-xs sm:text-sm">{doc.title}</p>
+                                <p className="text-xs text-muted-foreground truncate max-w-[120px] sm:max-w-[200px]">
+                                  {isMobile ? doc.description.substring(0, 20) + '...' : doc.description}
                                 </p>
                                 <div className="flex gap-1 mt-1">
                                   {doc.tags.slice(0, 2).map((tag, index) => (
@@ -399,21 +401,22 @@ export default function DataEntryPage() {
                           <TableCell>{getStatusBadge(doc.status)}</TableCell>
                           <TableCell>
                             <div className="flex gap-1">
-                              <Button variant="ghost" size="sm">
-                                <Eye className="h-4 w-4" />
+                              <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
+                                <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
                               </Button>
-                              <Button variant="ghost" size="sm">
-                                <Download className="h-4 w-4" />
+                              <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
+                                <Download className="h-3 w-3 sm:h-4 sm:w-4" />
                               </Button>
-                              <Button variant="ghost" size="sm" className="text-destructive">
-                                <Trash2 className="h-4 w-4" />
+                              <Button variant="ghost" size="sm" className="text-destructive mobile-button p-1 sm:p-2">
+                                <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
                               </Button>
                             </div>
                           </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
-                  </Table>
+                    </Table>
+                  </div>
                 </div>
 
                 {filteredDocuments.length === 0 && (
@@ -428,52 +431,51 @@ export default function DataEntryPage() {
         </div>
 
         {/* Statistics */}
-        <div className="grid gap-4 md:grid-cols-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">إجمالي المستندات</CardTitle>
+        <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-4">
+          <Card className="mobile-card">
+            <CardHeader className="pb-1 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-medium truncate">إجمالي المستندات</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-primary">{documents.length}</div>
+              <div className="text-xl sm:text-2xl font-bold text-primary">{documents.length}</div>
               <p className="text-xs text-muted-foreground">مستند مرفوع</p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">المستندات النشطة</CardTitle>
+          <Card className="mobile-card">
+            <CardHeader className="pb-1 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-medium truncate">المستندات النشطة</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-xl sm:text-2xl font-bold text-green-600">
                 {documents.filter(d => d.status === "active").length}
               </div>
               <p className="text-xs text-muted-foreground">نشط</p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">في الانتظار</CardTitle>
+          <Card className="mobile-card">
+            <CardHeader className="pb-1 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-medium truncate">في الانتظار</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-xl sm:text-2xl font-bold text-orange-600">
                 {documents.filter(d => d.status === "pending").length}
               </div>
               <p className="text-xs text-muted-foreground">معلق</p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">الحجم الإجمالي</CardTitle>
+          <Card className="mobile-card">
+            <CardHeader className="pb-1 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-medium truncate">الحجم الإجمالي</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-600">4.8 MB</div>
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">4.8 MB</div>
               <p className="text-xs text-muted-foreground">مساحة مستخدمة</p>
             </CardContent>
           </Card>
         </div>
-      </div>
     </div>
   );
 }

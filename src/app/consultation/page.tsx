@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Mail, Send, Clock, CheckCircle } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
 import { useToast } from "@/hooks/use-toast";
+import { useMobile } from "@/hooks/use-mobile";
 
 interface ConsultationData {
   clientName: string;
@@ -54,6 +55,7 @@ const consultationHistory = [
 export default function ConsultationPage() {
   const { t, isRTL } = useLanguage();
   const { toast } = useToast();
+  const { isMobile } = useMobile();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<ConsultationData>({
     clientName: "",
@@ -134,8 +136,7 @@ export default function ConsultationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto px-4 py-8 space-y-6">
+    <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex items-center gap-3">
           <Mail className="h-8 w-8 text-primary" />
@@ -147,22 +148,22 @@ export default function ConsultationPage() {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {/* Consultation Form */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="mobile-card">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Send className="h-5 w-5" />
-                  نموذج الاستشارة الجديدة
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <Send className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className={isMobile ? "truncate" : ""}>نموذج الاستشارة الجديدة</span>
                 </CardTitle>
                 <CardDescription>
                   املأ البيانات المطلوبة لإرسال طلب استشارة جديد
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid gap-4 md:grid-cols-2">
+                <form onSubmit={handleSubmit} className="mobile-form space-y-3 sm:space-y-4">
+                  <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="clientName">اسم العميل *</Label>
                       <Input
@@ -186,7 +187,7 @@ export default function ConsultationPage() {
                     </div>
                   </div>
 
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="clientPhone">رقم الهاتف</Label>
                       <Input
@@ -230,7 +231,7 @@ export default function ConsultationPage() {
                     />
                   </div>
 
-                  <div className="grid gap-4 md:grid-cols-3">
+                  <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                     <div className="space-y-2">
                       <Label htmlFor="priority">الأولوية</Label>
                       <Select value={formData.priority} onValueChange={(value) => handleInputChange("priority", value)}>
@@ -276,11 +277,11 @@ export default function ConsultationPage() {
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-2 pt-4">
-                    <Button type="button" variant="outline">
+                  <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
+                    <Button type="button" variant="outline" className="mobile-button order-2 sm:order-1">
                       إلغاء
                     </Button>
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isSubmitting} className="mobile-button order-1 sm:order-2">
                       {isSubmitting ? (
                         <>
                           <Clock className="mr-2 h-4 w-4 animate-spin" />
@@ -301,23 +302,23 @@ export default function ConsultationPage() {
 
           {/* Consultation History */}
           <div>
-            <Card>
+            <Card className="mobile-card">
               <CardHeader>
-                <CardTitle>الاستشارات السابقة</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">الاستشارات السابقة</CardTitle>
                 <CardDescription>
                   آخر الاستشارات المرسلة
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {consultationHistory.map((consultation) => (
-                  <div key={consultation.id} className="flex items-start gap-3 p-3 border rounded-lg">
+                  <div key={consultation.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
                     {getStatusIcon(consultation.status)}
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm truncate">
+                      <p className="font-medium text-xs sm:text-sm truncate">
                         {consultation.clientName}
                       </p>
                       <p className="text-xs text-muted-foreground truncate">
-                        {consultation.subject}
+                        {isMobile ? consultation.subject.substring(0, 30) + '...' : consultation.subject}
                       </p>
                       <div className="flex items-center gap-2 mt-2">
                         {getStatusBadge(consultation.status)}
@@ -335,7 +336,6 @@ export default function ConsultationPage() {
             </Card>
           </div>
         </div>
-      </div>
     </div>
   );
 }

@@ -16,6 +16,11 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
+import { useMobile } from "@/hooks/use-mobile";
+
+interface NavigationProps {
+  onItemClick?: () => void;
+}
 
 const navigationItems = [
   {
@@ -80,12 +85,13 @@ const navigationItems = [
   },
 ];
 
-export function Navigation() {
+export function Navigation({ onItemClick }: NavigationProps) {
   const pathname = usePathname();
   const { t, isRTL } = useLanguage();
+  const { isMobile } = useMobile();
 
   return (
-    <nav className="space-y-2">
+    <nav className="space-y-1 sm:space-y-2">
       {navigationItems.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href;
@@ -94,26 +100,41 @@ export function Navigation() {
           <Link
             key={item.href}
             href={item.href}
+            onClick={onItemClick}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors mobile-button",
+              "hover:bg-accent hover:text-accent-foreground",
+              "focus:bg-accent focus:text-accent-foreground focus:outline-none",
               isActive
                 ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-              isRTL && "flex-row-reverse"
+                : "text-muted-foreground",
+              isRTL && "flex-row-reverse",
+              isMobile && "py-3 text-base" // Larger touch targets on mobile
             )}
           >
-            <Icon className="h-4 w-4" />
-            <span className="flex-1">
+            <Icon className={cn("h-4 w-4 flex-shrink-0", isMobile && "h-5 w-5")} />
+            <div className="flex-1 min-w-0">
               {item.step > 0 && (
                 <span className={cn(
-                  "text-xs font-normal opacity-70 ml-2",
-                  isRTL && "mr-2 ml-0"
+                  "text-xs font-normal opacity-70",
+                  isRTL ? "mr-2 ml-0" : "ml-2 mr-0",
+                  isMobile && "text-sm"
                 )}>
                   {item.step}.
                 </span>
               )}
-              {t(item.name)}
-            </span>
+              <span className="truncate">{t(item.name)}</span>
+            </div>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}                  {item.step}.
+                </span>
+              )}
+              <span className="truncate">{t(item.name)}</span>
+            </div>
           </Link>
         );
       })}
