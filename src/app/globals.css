@@ -58,6 +58,11 @@
   }
 }
 
+/* Mobile-First Responsive Design */
+.mobile-optimized {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
 /* RTL Support for Arabic */
 [dir="rtl"] {
   direction: rtl;
@@ -69,8 +74,70 @@
 }
 
 [dir="rtl"] .main-content {
-  margin-right: 250px;
+  margin-right: 0;
   margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  [dir="rtl"] .main-content {
+    margin-right: 250px;
+    margin-left: 0;
+  }
+}
+
+/* Mobile Navigation */
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  [dir="rtl"] .sidebar {
+    transform: translateX(100%);
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Mobile Form Improvements */
+@media (max-width: 640px) {
+  .mobile-form {
+    @apply space-y-4;
+  }
+  
+  .mobile-form .grid {
+    @apply grid-cols-1 !important;
+  }
+  
+  .mobile-table {
+    @apply text-xs;
+  }
+  
+  .mobile-card {
+    @apply p-4 m-2;
+  }
+}
+
+/* Touch-friendly buttons */
+@media (max-width: 768px) {
+  .mobile-button {
+    @apply min-h-[44px] text-base;
+  }
+}
+
+/* Improved scroll behavior on mobile */
+@media (max-width: 768px) {
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+  }
 }
 
 /* Smooth transitions for language switching */
@@ -81,4 +148,23 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Mobile-specific utility classes */
+.mobile-hide {
+  @apply block sm:hidden;
+}
+
+.desktop-hide {
+  @apply hidden sm:block;
+}
+
+/* Enhanced focus states for mobile */
+@media (max-width: 768px) {
+  input:focus,
+  textarea:focus,
+  select:focus,
+  button:focus {
+    @apply ring-2 ring-primary ring-offset-2;
+  }
 }

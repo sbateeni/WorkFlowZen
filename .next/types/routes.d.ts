@@ -4,7 +4,7 @@
 type AppRoutes = "/" | "/consultation" | "/dashboard" | "/data-entry"
 type PageRoutes = never
 type LayoutRoutes = "/"
-type RedirectRoutes = never
+type RedirectRoutes = "/home"
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
 
@@ -14,6 +14,7 @@ interface ParamMap {
   "/consultation": {}
   "/dashboard": {}
   "/data-entry": {}
+  "/home": {}
 }
 
 

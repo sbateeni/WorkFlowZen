@@ -3,9 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/lib/language-context";
-import { Navigation } from "@/components/navigation";
-import { UserNav } from "@/components/user-nav";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { MobileLayout } from "@/components/mobile-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,44 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      </head>
       <body className={inter.className}>
         <LanguageProvider>
-          <div className="flex h-screen bg-gray-100">
-            {/* Sidebar */}
-            <div className="sidebar fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg">
-              <div className="flex h-full flex-col">
-                {/* Logo */}
-                <div className="flex h-16 items-center justify-center border-b px-6">
-                  <h1 className="text-xl font-bold text-primary">WorkFlowZen</h1>
-                </div>
-                
-                {/* Navigation */}
-                <div className="flex-1 overflow-y-auto px-4 py-6">
-                  <Navigation />
-                </div>
-              </div>
-            </div>
-
-            {/* Main Content */}
-            <div className="main-content flex-1 ml-64">
-              {/* Top Bar */}
-              <header className="flex h-16 items-center justify-between border-b bg-white px-6">
-                <div className="flex items-center space-x-4">
-                  <h2 className="text-lg font-semibold">لوحة التحكم - Dashboard</h2>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <LanguageSwitcher />
-                  <UserNav />
-                </div>
-              </header>
-
-              {/* Page Content */}
-              <main className="flex-1 overflow-y-auto p-6">
-                {children}
-              </main>
-            </div>
-          </div>
+          <MobileLayout>
+            {children}
+          </MobileLayout>
           <Toaster />
         </LanguageProvider>
       </body>
