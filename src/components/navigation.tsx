@@ -15,6 +15,11 @@ import {
   LayoutDashboard,
   MailQuestion,
   ShoppingBasket,
+  Database,
+  CheckCircle,
+  Download,
+  Bell,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -23,49 +28,92 @@ const navItems = [
     href: '/dashboard',
     icon: LayoutDashboard,
     label: 'Dashboard',
-    tooltip: 'Dashboard',
+    labelAr: 'لوحة التحكم',
+    tooltip: 'Dashboard - لوحة التحكم',
   },
   {
     href: '/consultation',
     icon: MailQuestion,
     label: 'Consultation',
-    tooltip: 'Consultation Request',
+    labelAr: 'الاستشارة',
+    tooltip: 'Consultation Request - إرسال إيميل استشارة',
+  },
+  {
+    href: '/data-entry',
+    icon: Database,
+    label: 'Data Entry',
+    labelAr: 'إدخال البيانات',
+    tooltip: 'Data & Documents Entry - إدخال البيانات والوثائق',
   },
   {
     href: '/purchase-order',
     icon: ShoppingBasket,
     label: 'Purchase Order',
-    tooltip: 'Purchase Order Request',
+    labelAr: 'أمر الشراء',
+    tooltip: 'Purchase Order Request - طلب أمر الشراء',
   },
   {
     href: '/service-request',
     icon: ClipboardList,
     label: 'Service Request',
-    tooltip: 'Service Request',
+    labelAr: 'طلب الخدمة',
+    tooltip: 'Service Request - طلب الخدمة',
   },
   {
     href: '/service-delivery',
     icon: CheckCircle2,
     label: 'Service Delivery',
-    tooltip: 'Service Delivery Confirmation',
+    labelAr: 'تسليم الخدمة',
+    tooltip: 'Service Delivery Confirmation - تسليم الخدمة',
   },
   {
     href: '/invoice',
     icon: FileText,
-    label: 'Invoice Capture',
-    tooltip: 'Invoice Information Capture',
+    label: 'Invoice Receipt',
+    labelAr: 'استلام الفاتورة',
+    tooltip: 'Invoice Information Capture - استلام الفاتورة',
   },
   {
     href: '/payment-request',
     icon: Banknote,
     label: 'Payment Request',
-    tooltip: 'Payment Request',
+    labelAr: 'طلب الدفع',
+    tooltip: 'Payment Request - عمل طلب الدفع',
+  },
+  {
+    href: '/payment-approval',
+    icon: CheckCircle,
+    label: 'Payment Approval',
+    labelAr: 'موافقة الدفع',
+    tooltip: 'Payment Approval - استلام موافقة الدفع',
   },
   {
     href: '/accounting',
     icon: Briefcase,
     label: 'Accounting',
-    tooltip: 'Accounting',
+    labelAr: 'المحاسبة',
+    tooltip: 'Accounting - إرسال الملف للمحاسبة',
+  },
+  {
+    href: '/reports',
+    icon: Download,
+    label: 'Reports',
+    labelAr: 'التقارير',
+    tooltip: 'Reports & Analytics - التقارير والتحليلات',
+  },
+  {
+    href: '/notifications',
+    icon: Bell,
+    label: 'Notifications',
+    labelAr: 'الإشعارات',
+    tooltip: 'Notifications & Alerts - الإشعارات والتنبيهات',
+  },
+  {
+    href: '/users',
+    icon: Users,
+    label: 'User Management',
+    labelAr: 'إدارة المستخدمين',
+    tooltip: 'User Management & Permissions - إدارة المستخدمين والصلاحيات',
   },
 ];
 
@@ -86,7 +134,10 @@ export function Navigation() {
             >
               <Link href={item.href}>
                 <item.icon />
-                <span>{item.label}</span>
+                <div className="flex flex-col">
+                  <span className="text-sm">{item.label}</span>
+                  <span className="text-xs text-gray-500 font-normal">{item.labelAr}</span>
+                </div>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
