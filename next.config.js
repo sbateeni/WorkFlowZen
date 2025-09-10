@@ -2,9 +2,7 @@
 const nextConfig = {
   // Enable experimental features
   experimental: {
-    serverActions: {
-      allowedOrigins: ["localhost:3000", "*.vercel.app"],
-    },
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   
   // Enable compression
@@ -15,9 +13,17 @@ const nextConfig = {
   
   // Image optimization
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
   },
+  
+  // Output configuration for better deployment
+  output: 'standalone',
 };
 
 module.exports = nextConfig;
