@@ -47,35 +47,7 @@ interface PurchaseOrderData {
   items: PurchaseOrderItem[];
 }
 
-const sampleOrders = [
-  {
-    id: 1,
-    orderNumber: "PO-2024-001",
-    supplier: "شركة التقنيات المتقدمة",
-    total: 15750.00,
-    status: "pending",
-    createdAt: "2024-01-15",
-    expectedDelivery: "2024-01-25"
-  },
-  {
-    id: 2,
-    orderNumber: "PO-2024-002",
-    supplier: "Advanced Solutions Ltd",
-    total: 8900.00,
-    status: "approved",
-    createdAt: "2024-01-14",
-    expectedDelivery: "2024-01-22"
-  },
-  {
-    id: 3,
-    orderNumber: "PO-2024-003",
-    supplier: "مؤسسة الخدمات الشاملة",
-    total: 12300.00,
-    status: "rejected",
-    createdAt: "2024-01-13",
-    expectedDelivery: "2024-01-20"
-  }
-];
+const sampleOrders: any[] = [];
 
 export default function PurchaseOrderPage() {
   const { t, isRTL } = useLanguage();
