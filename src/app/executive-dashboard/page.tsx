@@ -1,16 +1,31 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { BarChart3, Target, Activity, TrendingUp } from "lucide-react";
+import { Trash2 } from "lucide-react";
+import { useDatabase } from "@/components/providers/database-provider";
 
 export default function ExecutiveDashboardPage() {
+  const { clearAllData } = useDatabase();
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold">لوحة المدراء ومؤشرات الأداء</h1>
-        <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
-          الخطوة 19: متابعة مؤشرات الأداء الرئيسية.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold">لوحة المدراء ومؤشرات الأداء</h1>
+          <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
+            الخطوة 19: متابعة مؤشرات الأداء الرئيسية.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" className="mobile-button" onClick={async () => {
+            await clearAllData();
+            if (typeof window !== 'undefined') window.location.reload();
+          }}>
+            <Trash2 className="h-4 w-4 mr-1" />
+            إعادة ضبط البيانات
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import dbService, { StoredData, saveData, getAllData, getDataById, updateData, deleteData, searchData, getDataStats, initDB } from '@/lib/indexeddb';
+import { useRef } from 'react';
 
 export interface UseIndexedDBResult<T = any> {
   data: StoredData[];
@@ -184,4 +185,45 @@ export function useIndexedDBGlobal() {
     initialize,
     clearAllData
   };
+}
+
+// App-level state hook (e.g., current workflow step)
+export function useAppState<T = any>(key: string) {
+  const [value, setValue] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const keyRef = useRef(key);
+
+  const load = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      await initDB();
+      const v = await dbService.getAppState<T>(keyRef.current);
+      setValue(v);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to load app state';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const update = useCallback(async (newValue: T) => {
+    try {
+      setError(null);
+      await dbService.setAppState<T>(keyRef.current, newValue);
+      setValue(newValue);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to save app state';
+      setError(msg);
+      throw new Error(msg);
+    }
+  }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  return { value, set: update, loading, error, refresh: load } as const;
 }

@@ -89,6 +89,11 @@ class IndexedDBService {
           documentStore.createIndex('category', 'data.category', { unique: false });
           documentStore.createIndex('title', 'data.title', { unique: false });
         }
+
+        // App-level state (singleton key/value store)
+        if (!db.objectStoreNames.contains('appState')) {
+          db.createObjectStore('appState', { keyPath: 'key' });
+        }
       };
     });
   }
@@ -278,6 +283,31 @@ class IndexedDBService {
     return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
+  // App state helpers
+  async setAppState<T = any>(key: string, value: T): Promise<void> {
+    const db = await this.ensureDB();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['appState'], 'readwrite');
+      const store = transaction.objectStore('appState');
+      const request = store.put({ key, value, updatedAt: new Date().toISOString() });
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(new Error('Failed to set app state'));
+    });
+  }
+
+  async getAppState<T = any>(key: string): Promise<T | null> {
+    const db = await this.ensureDB();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['appState'], 'readonly');
+      const store = transaction.objectStore('appState');
+      const request = store.get(key);
+      request.onsuccess = () => {
+        resolve(request.result ? (request.result.value as T) : null);
+      };
+      request.onerror = () => reject(new Error('Failed to get app state'));
+    });
+  }
+
   async clearAll(type?: StoredData['type']): Promise<void> {
     const db = await this.ensureDB();
     
@@ -292,8 +322,8 @@ class IndexedDBService {
         request.onerror = () => reject(new Error(`Failed to clear ${type} data`));
       });
     } else {
-      // Clear all stores
-      const storeNames = ['consultations', 'serviceRequests', 'paymentRequests', 'serviceDeliveries', 'purchaseOrders', 'invoiceReceipts', 'documents'];
+      // Clear all stores (including appState)
+      const storeNames = ['consultations', 'serviceRequests', 'paymentRequests', 'serviceDeliveries', 'purchaseOrders', 'invoiceReceipts', 'documents', 'appState'];
       const promises = storeNames.map(storeName => {
         return new Promise<void>((resolve, reject) => {
           const transaction = db.transaction([storeName], 'readwrite');
