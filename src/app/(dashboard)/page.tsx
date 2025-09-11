@@ -11,8 +11,6 @@ import {
 } from "lucide-react";
 import { DashboardClient } from "@/components/dashboard-client";
 
-export const dynamic = 'force-dynamic';
-
 const workflowSteps = [
   {
     id: 1,
