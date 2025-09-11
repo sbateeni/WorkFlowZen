@@ -1,7 +1,3 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { 
   Mail, 
   FileText, 
@@ -11,19 +7,11 @@ import {
   Receipt, 
   CreditCard, 
   CheckCircle, 
-  Send,
-  ArrowRight,
-  Clock,
-  AlertCircle
+  Send
 } from "lucide-react";
-import Link from "next/link";
-import dynamic from "next/dynamic";
+import { DashboardClient } from "@/components/dashboard-client";
 
-// Dynamically import the client component
-const DashboardClient = dynamic(() => import("@/components/dashboard-client").then(mod => ({ default: mod.DashboardClient })), {
-  ssr: false,
-  loading: () => <div className="flex items-center justify-center p-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>
-});
+export const dynamic = 'force-dynamic';
 
 const workflowSteps = [
   {
@@ -109,31 +97,7 @@ const workflowSteps = [
   },
 ];
 
-const getStatusVariant = (status: string) => {
-  switch (status) {
-    case "completed":
-      return "success";
-    case "current":
-      return "pending";
-    case "pending":
-      return "secondary";
-    default:
-      return "secondary";
-  }
-};
 
-const getStatusIcon = (status: string) => {
-  switch (status) {
-    case "completed":
-      return CheckCircle;
-    case "current":
-      return Clock;
-    case "pending":
-      return AlertCircle;
-    default:
-      return AlertCircle;
-  }
-};
 
 export default function DashboardPage() {
   return <DashboardClient workflowSteps={workflowSteps} />;
