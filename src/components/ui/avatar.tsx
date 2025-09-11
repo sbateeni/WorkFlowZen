@@ -5,6 +5,7 @@ import * as React from "react"
 // import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 // Placeholder Avatar component until dependency is resolved
 const Avatar = React.forwardRef<
@@ -26,11 +27,13 @@ const AvatarImage = React.forwardRef<
   HTMLImageElement,
   React.ImgHTMLAttributes<HTMLImageElement>
 >(({ className, ...props }, ref) => (
-  <img
-    ref={ref}
+  <Image
+    ref={ref as any}
     className={cn("aspect-square h-full w-full", className)}
     alt=""
-    {...props}
+    fill
+    sizes="40px"
+    {...(props as any)}
   />
 ))
 AvatarImage.displayName = "AvatarImage"
