@@ -23,6 +23,7 @@ class IndexedDBService {
   private dbName = 'WorkFlowZenDB';
   private version = 1;
   private db: IDBDatabase | null = null;
+  private allStoreNames = ['consultations', 'serviceRequests', 'paymentRequests', 'serviceDeliveries', 'purchaseOrders', 'invoiceReceipts', 'documents', 'appState'];
 
   async init(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -323,7 +324,7 @@ class IndexedDBService {
       });
     } else {
       // Clear all stores (including appState)
-      const storeNames = ['consultations', 'serviceRequests', 'paymentRequests', 'serviceDeliveries', 'purchaseOrders', 'invoiceReceipts', 'documents', 'appState'];
+      const storeNames = this.allStoreNames;
       const promises = storeNames.map(storeName => {
         return new Promise<void>((resolve, reject) => {
           const transaction = db.transaction([storeName], 'readwrite');
@@ -336,6 +337,62 @@ class IndexedDBService {
       });
 
       await Promise.all(promises);
+    }
+  }
+
+  // Backup all stores into a JSON-serializable bundle
+  async exportAll(): Promise<any> {
+    const db = await this.ensureDB();
+    const readStore = (storeName: string): Promise<any[]> => {
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction([storeName], 'readonly');
+        const store = tx.objectStore(storeName);
+        const request = store.getAll();
+        request.onsuccess = () => resolve(request.result || []);
+        request.onerror = () => reject(new Error(`Failed to read store ${storeName}`));
+      });
+    };
+
+    const entries = await Promise.all(this.allStoreNames.map(async (name) => {
+      const data = await readStore(name);
+      return [name, data] as const;
+    }));
+
+    const payload: any = {
+      meta: {
+        dbName: this.dbName,
+        version: this.version,
+        exportedAt: new Date().toISOString(),
+      },
+      stores: Object.fromEntries(entries),
+    };
+    return payload;
+  }
+
+  // Restore all stores from a previously exported bundle
+  async importAll(bundle: any): Promise<void> {
+    if (!bundle || typeof bundle !== 'object' || !bundle.stores) {
+      throw new Error('Invalid backup bundle');
+    }
+    const db = await this.ensureDB();
+    // Clear all first
+    await this.clearAll();
+
+    const storeNames = Object.keys(bundle.stores) as string[];
+    for (const storeName of storeNames) {
+      if (!this.allStoreNames.includes(storeName)) continue;
+      const records: any[] = bundle.stores[storeName] || [];
+      if (records.length === 0) continue;
+      await new Promise<void>((resolve, reject) => {
+        const tx = db.transaction([storeName], 'readwrite');
+        const store = tx.objectStore(storeName);
+        for (const rec of records) {
+          store.put(rec);
+        }
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(new Error(`Failed to import into ${storeName}`));
+        tx.onabort = () => reject(new Error(`Aborted import into ${storeName}`));
+      });
     }
   }
 }

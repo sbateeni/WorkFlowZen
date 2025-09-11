@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BarChart3, Target, Activity, TrendingUp } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import { useDatabase } from "@/components/providers/database-provider";
+import dbService from "@/lib/indexeddb";
 
 export default function ExecutiveDashboardPage() {
   const { clearAllData } = useDatabase();
@@ -25,6 +26,36 @@ export default function ExecutiveDashboardPage() {
             <Trash2 className="h-4 w-4 mr-1" />
             إعادة ضبط البيانات
           </Button>
+          <Button variant="outline" size="sm" className="mobile-button" onClick={async () => {
+            const payload = await dbService.exportAll();
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `workflowzen-backup-${new Date().toISOString()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }}>
+            تنزيل نسخة احتياطية
+          </Button>
+          <label className="inline-flex items-center">
+            <input
+              type="file"
+              accept="application/json"
+              className="hidden"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const text = await file.text();
+                const bundle = JSON.parse(text);
+                await dbService.importAll(bundle);
+                if (typeof window !== 'undefined') window.location.reload();
+              }}
+            />
+            <Button asChild variant="outline" size="sm" className="mobile-button">
+              <span role="button">استعادة نسخة</span>
+            </Button>
+          </label>
         </div>
       </div>
 

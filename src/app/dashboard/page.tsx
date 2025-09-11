@@ -16,8 +16,7 @@ import {
   Send,
   ArrowRight,
   Clock,
-  AlertCircle,
-  Trash2
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-context";
@@ -31,7 +30,6 @@ import {
   usePaymentRequests
 } from "@/hooks/use-indexeddb";
 import { useAppState } from "@/hooks/use-indexeddb";
-import { useDatabase } from "@/components/providers/database-provider";
 import dbService from "@/lib/indexeddb";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -83,7 +81,6 @@ export default function DashboardPage() {
   const { stats: invoiceReceiptsStats } = useInvoiceReceipts();
   const { stats: paymentRequestsStats } = usePaymentRequests();
   const { value: currentStepId, set: setCurrentStep } = useAppState<number>("currentStepId");
-  const { clearAllData } = useDatabase();
   const { toast } = useToast();
   const [history, setHistory] = useState<{ stepId: number; at: string }[]>([]);
   const [lastChangedAt, setLastChangedAt] = useState<string | null>(null);
@@ -189,15 +186,6 @@ export default function DashboardPage() {
             نظام إدارة سير العمل - تتبع ومراقبة جميع العمليات
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="mobile-button" onClick={async () => {
-            await clearAllData();
-            if (typeof window !== 'undefined') window.location.reload();
-          }}>
-            <Trash2 className="h-4 w-4 mr-1" />
-            إعادة ضبط البيانات
-          </Button>
-        </div>
       </div>
 
       {/* Progress Overview */}
@@ -229,14 +217,7 @@ export default function DashboardPage() {
                 </Link>
               )}
             </div>
-            <div className="flex items-center justify-between">
-              <Button variant="outline" size="sm" className="mobile-button" onClick={async () => {
-                await clearAllData();
-                if (typeof window !== 'undefined') window.location.reload();
-              }}>
-                إعادة ضبط وإزالة البيانات الوهمية
-              </Button>
-            </div>
+            {/* Inner reset button removed as per request */}
             <Progress value={progressPercentage} className="h-2 sm:h-3" />
             <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
               <span>البداية</span>
