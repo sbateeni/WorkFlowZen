@@ -12,6 +12,7 @@ import { Mail, Send, Clock, CheckCircle } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
 import { useToast } from "@/hooks/use-toast";
 import { useMobile } from "@/hooks/use-mobile";
+import { useConsultations } from "@/hooks/use-indexeddb";
 
 interface ConsultationData {
   clientName: string;
@@ -31,6 +32,7 @@ export default function ConsultationPage() {
   const { t, isRTL } = useLanguage();
   const { toast } = useToast();
   const { isMobile } = useMobile();
+  const { data: consultations, save, loading, error } = useConsultations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<ConsultationData>({
     clientName: "",
@@ -53,12 +55,19 @@ export default function ConsultationPage() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Save to IndexedDB
+      const consultationRecord = {
+        ...formData,
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+        responseTime: formData.expectedResponse
+      };
+      
+      await save(consultationRecord);
       
       toast({
-        title: "تم إرسال الاستشارة بنجاح",
-        description: "سيتم الرد عليك في أقرب وقت ممكن",
+        title: "تم حفظ الاستشارة بنجاح",
+        description: "تم حفظ البيانات في قاعدة البيانات المحلية",
       });
       
       // Reset form
@@ -75,7 +84,7 @@ export default function ConsultationPage() {
       });
     } catch (error) {
       toast({
-        title: "خطأ في الإرسال",
+        title: "خطأ في الحفظ",
         description: "يرجى المحاولة مرة أخرى",
         variant: "destructive",
       });
@@ -281,30 +290,39 @@ export default function ConsultationPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {consultationHistory.length === 0 ? (
+                {loading ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p>جاري تحميل البيانات...</p>
+                  </div>
+                ) : error ? (
+                  <div className="text-center py-8 text-destructive">
+                    <p>خطأ في تحميل البيانات</p>
+                    <p className="text-sm">{error}</p>
+                  </div>
+                ) : consultations.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
                     <p>لا توجد استشارات سابقة</p>
                     <p className="text-sm">No previous consultations</p>
                   </div>
                 ) : (
-                  consultationHistory.map((consultation) => (
+                  consultations.map((consultation) => (
                     <div key={consultation.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                      {getStatusIcon(consultation.status)}
+                      {getStatusIcon(consultation.data.status || consultation.status)}
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-xs sm:text-sm truncate">
-                          {consultation.clientName}
+                          {consultation.data.clientName || 'Unknown Client'}
                         </p>
                         <p className="text-xs text-muted-foreground truncate">
-                          {isMobile ? consultation.subject.substring(0, 30) + '...' : consultation.subject}
+                          {isMobile ? (consultation.data.subject || 'No subject').substring(0, 30) + '...' : (consultation.data.subject || 'No subject')}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
-                          {getStatusBadge(consultation.status)}
+                          {getStatusBadge(consultation.data.status || consultation.status)}
                           <span className="text-xs text-muted-foreground">
-                            {consultation.createdAt}
+                            {new Date(consultation.createdAt).toLocaleDateString('ar-SA')}
                           </span>
                         </div>
                         <p className="text-xs text-muted-foreground mt-1">
-                          وقت الرد: {consultation.responseTime}
+                          وقت الرد: {consultation.data.expectedResponse || 'غير محدد'}
                         </p>
                       </div>
                     </div>
