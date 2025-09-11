@@ -8,7 +8,7 @@ const nextConfig = {
   
   // Experimental features for stability
   experimental: {
-    serverComponentsExternalPackages: ['@radix-ui/react-toast'],
+    serverComponentsExternalPackages: ['lucide-react', '@radix-ui/react-toast'],
   },
   
   // Image optimization
