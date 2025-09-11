@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { LanguageProvider } from "@/lib/language-context";
-import { MobileLayout } from "@/components/mobile-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,12 +24,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className={inter.className}>
-        <LanguageProvider>
-          <MobileLayout>
+        <div className="min-h-screen bg-background p-6">
+          <div className="mx-auto max-w-7xl">
             {children}
-          </MobileLayout>
-          <Toaster />
-        </LanguageProvider>
+          </div>
+        </div>
       </body>
     </html>
   );

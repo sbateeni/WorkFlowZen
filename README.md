@@ -13,7 +13,7 @@ A modern, bilingual (Arabic/English) workflow management system built with Next.
 
 ## 🚀 Live Demo
 
-Visit the live application: [WorkFlowZen Demo](https://your-vercel-url.vercel.app)
+Visit the live application: [WorkFlowZen Demo](https://example.com)
 
 ## 🛠️ Tech Stack
 
@@ -23,7 +23,6 @@ Visit the live application: [WorkFlowZen Demo](https://your-vercel-url.vercel.ap
 - **UI Components**: Radix UI
 - **Icons**: Lucide React
 - **Forms**: React Hook Form + Zod
-- **Deployment**: Vercel
 
 ## 📦 Installation
 
@@ -50,7 +49,7 @@ NEXT_PUBLIC_APP_NAME=WorkFlowZen
 NEXT_PUBLIC_APP_VERSION=1.0.0
 ```
 
-## 🏗️ Build & Deploy
+## 🏗️ Build & Run
 
 ```bash
 # Build for production
@@ -58,9 +57,6 @@ npm run build
 
 # Start production server
 npm start
-
-# Deploy to Vercel
-vercel --prod
 ```
 
 ## 📝 Workflow Steps

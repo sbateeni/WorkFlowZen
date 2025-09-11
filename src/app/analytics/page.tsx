@@ -21,8 +21,6 @@ import {
   Target,
   Activity
 } from "lucide-react";
-import { useLanguage } from "@/lib/language-context";
-import { useMobile } from "@/hooks/use-mobile";
 
 interface AnalyticsData {
   period: string;
@@ -105,10 +103,14 @@ const workflowAnalytics = [
 ];
 
 export default function AnalyticsPage() {
-  const { t, isRTL } = useLanguage();
-  const { isMobile } = useMobile();
+  // Simple state management without external hooks
   const [selectedPeriod, setSelectedPeriod] = useState("6months");
   const [selectedMetric, setSelectedMetric] = useState("revenue");
+  
+  // Temporary fallbacks
+  const isRTL = false;
+  const isMobile = false;
+  const t = (key: string) => key;
 
   const getTrendIcon = (trend: string) => {
     return trend === "up" ? 
