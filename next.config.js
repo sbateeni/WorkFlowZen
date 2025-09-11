@@ -6,11 +6,6 @@ const nextConfig = {
   // Performance optimizations
   swcMinify: true,
   
-  // Experimental features for stability
-  experimental: {
-    serverComponentsExternalPackages: ['@radix-ui/react-toast'],
-  },
-  
   // Image optimization
   images: {
     remotePatterns: [
