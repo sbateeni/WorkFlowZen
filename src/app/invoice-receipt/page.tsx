@@ -112,7 +112,7 @@ export default function InvoiceReceiptPage() {
     totalAmount: 0,
     taxAmount: 0,
     netAmount: 0,
-    currency: "SAR",
+    currency: "ILS",
     paymentTerms: "",
     description: "",
     category: "",
@@ -165,7 +165,7 @@ export default function InvoiceReceiptPage() {
         totalAmount: 0,
         taxAmount: 0,
         netAmount: 0,
-        currency: "SAR",
+        currency: "ILS",
         paymentTerms: "",
         description: "",
         category: "",
@@ -391,7 +391,7 @@ export default function InvoiceReceiptPage() {
                           <SelectValue placeholder="اختر العملة" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="SAR">ريال سعودي (SAR)</SelectItem>
+                          <SelectItem value="ILS">شيكل (ILS)</SelectItem>
                           <SelectItem value="USD">دولار أمريكي (USD)</SelectItem>
                           <SelectItem value="EUR">يورو (EUR)</SelectItem>
                           <SelectItem value="AED">درهم إماراتي (AED)</SelectItem>
@@ -528,7 +528,7 @@ export default function InvoiceReceiptPage() {
                     </div>
                     <div className="flex justify-between items-center mt-1">
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {invoice.totalAmount.toFixed(2)} ر.س
+                        {invoice.totalAmount.toFixed(2)} ₪
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {invoice.invoiceDate}
@@ -573,7 +573,7 @@ export default function InvoiceReceiptPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي القيمة</span>
                 <span className="font-semibold text-primary">
-                  {sampleInvoices.reduce((sum, i) => sum + i.totalAmount, 0).toFixed(2)} ر.س
+                  {sampleInvoices.reduce((sum, i) => sum + i.totalAmount, 0).toFixed(2)} ₪
                 </span>
               </div>
             </CardContent>

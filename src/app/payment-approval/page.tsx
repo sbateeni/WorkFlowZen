@@ -113,7 +113,7 @@ export default function PaymentApprovalPage() {
     requestedBy: "",
     payeeName: "",
     amount: 0,
-    currency: "SAR",
+    currency: "ILS",
     submissionDate: "",
     urgency: "",
     purpose: "",
@@ -169,7 +169,7 @@ export default function PaymentApprovalPage() {
         requestedBy: "",
         payeeName: "",
         amount: 0,
-        currency: "SAR",
+        currency: "ILS",
         submissionDate: "",
         urgency: "",
         purpose: "",
@@ -210,7 +210,7 @@ export default function PaymentApprovalPage() {
       requestedBy: approval.requestedBy,
       payeeName: approval.payeeName,
       amount: approval.amount,
-      currency: "SAR",
+      currency: "ILS",
       submissionDate: approval.submissionDate,
       urgency: approval.urgency,
       purpose: approval.purpose,
@@ -322,7 +322,7 @@ export default function PaymentApprovalPage() {
                       </div>
                       <div className="text-right">
                         <p className="font-semibold text-primary">
-                          {approval.amount.toFixed(2)} ر.س
+                          {approval.amount.toFixed(2)} ₪
                         </p>
                         <Button variant="outline" size="sm" className="mobile-button mt-2">
                           <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
@@ -511,7 +511,7 @@ export default function PaymentApprovalPage() {
                     </div>
                     <div className="flex justify-between items-center mt-1">
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {approval.amount.toFixed(2)} ر.س
+                        {approval.amount.toFixed(2)} ₪
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {approval.submissionDate}
@@ -554,7 +554,7 @@ export default function PaymentApprovalPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي المبالغ</span>
                 <span className="font-semibold text-primary">
-                  {sampleApprovals.reduce((sum, a) => sum + a.amount, 0).toFixed(2)} ر.س
+                  {sampleApprovals.reduce((sum, a) => sum + a.amount, 0).toFixed(2)} ₪
                 </span>
               </div>
             </CardContent>

@@ -25,6 +25,7 @@ import {
   TrendingUp,
   TrendingDown
 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
 import { useMobile } from "@/hooks/use-mobile";
 
@@ -290,9 +291,9 @@ export default function AssetManagementPage() {
           </CardHeader>
           <CardContent>
             <div className="text-lg sm:text-xl font-bold text-blue-600">
-              {(assetStats.totalValue / 1000).toFixed(0)}K SAR
+              {formatCurrency(assetStats.totalValue, "ILS", "ar")}
             </div>
-            <p className="text-xs text-muted-foreground">ريال سعودي</p>
+            <p className="text-xs text-muted-foreground">شيكل</p>
           </CardContent>
         </Card>
         
@@ -422,7 +423,7 @@ export default function AssetManagementPage() {
                         <TableCell>
                           <div>
                             <p className="text-xs sm:text-sm font-medium">
-                              {asset.currentValue.toLocaleString()} SAR
+                              {formatCurrency(asset.currentValue, "ILS", "ar")}
                             </p>
                             <div className="flex items-center gap-1">
                               {valueTrend.trend === "down" ? (

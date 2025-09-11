@@ -21,6 +21,7 @@ import {
   Target,
   Activity
 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 interface AnalyticsData {
   period: string;
@@ -42,7 +43,7 @@ const analyticsData: AnalyticsData[] = [
 const kpiMetrics = [
   {
     title: "إجمالي الإيرادات",
-    value: "SAR 843,000",
+    value: formatCurrency(843000, "ILS", "ar"),
     change: "+12.5%",
     trend: "up",
     icon: DollarSign,
@@ -221,7 +222,7 @@ export default function AnalyticsPage() {
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium">{data.period} 2024</span>
                       <div className="flex gap-4 text-sm">
-                        <span className="text-green-600">SAR {data.revenue.toLocaleString()}</span>
+                        <span className="text-green-600">{formatCurrency(data.revenue, "ILS", "ar")}</span>
                         <span className="text-blue-600">{data.orders} طلب</span>
                         <span className="text-purple-600">{data.users} مستخدم</span>
                       </div>
@@ -317,7 +318,7 @@ export default function AnalyticsPage() {
               <div>
                 <div className="flex justify-between mb-1">
                   <span className="text-sm font-medium">الإيرادات الشهرية</span>
-                  <span className="text-sm text-muted-foreground">167K / 200K SAR</span>
+                  <span className="text-sm text-muted-foreground">167K / 200K ₪</span>
                 </div>
                 <Progress value={83.5} className="h-2" />
               </div>

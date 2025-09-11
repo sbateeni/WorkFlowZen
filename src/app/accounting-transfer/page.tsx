@@ -132,7 +132,7 @@ export default function AccountingTransferPage() {
     department: "",
     totalRecords: 0,
     totalAmount: 0,
-    currency: "SAR",
+    currency: "ILS",
     transferMethod: "",
     systemDestination: "",
     encryptionEnabled: true,
@@ -498,7 +498,7 @@ export default function AccountingTransferPage() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="SAR">ريال سعودي</SelectItem>
+                            <SelectItem value="ILS">شيكل</SelectItem>
                             <SelectItem value="USD">دولار أمريكي</SelectItem>
                             <SelectItem value="EUR">يورو</SelectItem>
                           </SelectContent>
@@ -608,7 +608,7 @@ export default function AccountingTransferPage() {
                         {transfer.totalRecords} سجل
                       </span>
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {transfer.totalAmount.toFixed(2)} ر.س
+                        {transfer.totalAmount.toFixed(2)} ₪
                       </span>
                     </div>
                   </div>
@@ -656,7 +656,7 @@ export default function AccountingTransferPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي المبالغ</span>
                 <span className="font-semibold text-primary">
-                  {sampleTransfers.reduce((sum, t) => sum + t.totalAmount, 0).toFixed(2)} ر.س
+                  {sampleTransfers.reduce((sum, t) => sum + t.totalAmount, 0).toFixed(2)} ₪
                 </span>
               </div>
             </CardContent>

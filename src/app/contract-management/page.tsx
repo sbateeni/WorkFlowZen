@@ -24,6 +24,7 @@ import {
   Calendar,
   DollarSign
 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
 import { useMobile } from "@/hooks/use-mobile";
 
@@ -236,9 +237,9 @@ export default function ContractManagementPage() {
           </CardHeader>
           <CardContent>
             <div className="text-lg sm:text-xl font-bold text-blue-600">
-              {(contractStats.totalValue / 1000).toFixed(0)}K SAR
+              {formatCurrency(contractStats.totalValue, "ILS", "ar")}
             </div>
-            <p className="text-xs text-muted-foreground">ريال سعودي</p>
+            <p className="text-xs text-muted-foreground">شيكل</p>
           </CardContent>
         </Card>
       </div>
@@ -354,7 +355,7 @@ export default function ContractManagementPage() {
                           <div className="flex items-center gap-1">
                             <DollarSign className="h-3 w-3 text-muted-foreground" />
                             <span className="text-xs sm:text-sm">
-                              {(contract.value / 1000).toFixed(0)}K SAR
+                              {formatCurrency(contract.value, "ILS", "ar")}
                             </span>
                           </div>
                         </TableCell>

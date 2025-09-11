@@ -115,7 +115,7 @@ export default function PaymentRequestPage() {
     accountNumber: "",
     iban: "",
     amount: 0,
-    currency: "SAR",
+    currency: "ILS",
     paymentDate: "",
     urgency: "normal",
     purpose: "",
@@ -156,7 +156,7 @@ export default function PaymentRequestPage() {
         accountNumber: "",
         iban: "",
         amount: 0,
-        currency: "SAR",
+        currency: "ILS",
         paymentDate: "",
         urgency: "normal",
         purpose: "",
@@ -389,7 +389,7 @@ export default function PaymentRequestPage() {
                           <SelectValue placeholder="اختر العملة" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="SAR">ريال سعودي (SAR)</SelectItem>
+                          <SelectItem value="ILS">شيكل (ILS)</SelectItem>
                           <SelectItem value="USD">دولار أمريكي (USD)</SelectItem>
                           <SelectItem value="EUR">يورو (EUR)</SelectItem>
                           <SelectItem value="AED">درهم إماراتي (AED)</SelectItem>
@@ -572,7 +572,7 @@ export default function PaymentRequestPage() {
                     </div>
                     <div className="flex justify-between items-center mt-1">
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {request.amount.toFixed(2)} ر.س
+                        {request.amount.toFixed(2)} ₪
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {request.paymentDate}
@@ -617,7 +617,7 @@ export default function PaymentRequestPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي المبالغ</span>
                 <span className="font-semibold text-primary">
-                  {samplePaymentRequests.reduce((sum, r) => sum + r.amount, 0).toFixed(2)} ر.س
+                  {samplePaymentRequests.reduce((sum, r) => sum + r.amount, 0).toFixed(2)} ₪
                 </span>
               </div>
             </CardContent>
