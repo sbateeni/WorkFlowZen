@@ -231,7 +231,7 @@ export default function ServiceDeliveryPage() {
                 {/* Delivery Information */}
                 <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="deliveryId">رقم التسليم *</Label>
+                    <Label htmlFor="deliveryId">رقم التسليم</Label>
                     <Input
                       id="deliveryId"
                       value={formData.deliveryId}
@@ -240,26 +240,24 @@ export default function ServiceDeliveryPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="serviceRequestId">رقم طلب الخدمة *</Label>
+                    <Label htmlFor="serviceRequestId">رقم طلب الخدمة</Label>
                     <Input
                       id="serviceRequestId"
                       value={formData.serviceRequestId}
                       onChange={(e) => handleInputChange("serviceRequestId", e.target.value)}
                       placeholder="SR-2024-XXX"
-                      required
                     />
                   </div>
                 </div>
 
                 <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="deliveryDate">تاريخ التسليم *</Label>
+                    <Label htmlFor="deliveryDate">تاريخ التسليم</Label>
                     <Input
                       id="deliveryDate"
                       type="date"
                       value={formData.deliveryDate}
                       onChange={(e) => handleInputChange("deliveryDate", e.target.value)}
-                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -281,45 +279,41 @@ export default function ServiceDeliveryPage() {
                   </h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="technician">اسم الفني *</Label>
+                      <Label htmlFor="technician">اسم الفني</Label>
                       <Input
                         id="technician"
                         value={formData.technician}
                         onChange={(e) => handleInputChange("technician", e.target.value)}
                         placeholder="أدخل اسم الفني المسؤول"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="clientName">اسم العميل *</Label>
+                      <Label htmlFor="clientName">اسم العميل</Label>
                       <Input
                         id="clientName"
                         value={formData.clientName}
                         onChange={(e) => handleInputChange("clientName", e.target.value)}
                         placeholder="أدخل اسم العميل"
-                        required
                       />
                     </div>
                   </div>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="location">الموقع *</Label>
+                      <Label htmlFor="location">الموقع</Label>
                       <Input
                         id="location"
                         value={formData.location}
                         onChange={(e) => handleInputChange("location", e.target.value)}
                         placeholder="موقع تنفيذ الخدمة"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="serviceType">نوع الخدمة *</Label>
+                      <Label htmlFor="serviceType">نوع الخدمة</Label>
                       <Input
                         id="serviceType"
                         value={formData.serviceType}
                         onChange={(e) => handleInputChange("serviceType", e.target.value)}
                         placeholder="نوع الخدمة المنفذة"
-                        required
                       />
                     </div>
                   </div>
@@ -329,7 +323,7 @@ export default function ServiceDeliveryPage() {
                 <div className="space-y-3 sm:space-y-4">
                   <h3 className="text-base sm:text-lg font-semibold">حالة الإنجاز</h3>
                   <div className="space-y-2">
-                    <Label htmlFor="completionStatus">حالة إكمال الخدمة *</Label>
+                    <Label htmlFor="completionStatus">حالة إكمال الخدمة</Label>
                     <Select value={formData.completionStatus} onValueChange={(value) => handleInputChange("completionStatus", value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر حالة الإنجاز" />
@@ -412,14 +406,13 @@ export default function ServiceDeliveryPage() {
                 {/* Issues and Notes */}
                 {formData.completionStatus === "issues" && (
                   <div className="space-y-2">
-                    <Label htmlFor="issues">المشاكل أو القضايا *</Label>
+                    <Label htmlFor="issues">المشاكل أو القضايا</Label>
                     <Textarea
                       id="issues"
                       value={formData.issues}
                       onChange={(e) => handleInputChange("issues", e.target.value)}
                       placeholder="اشرح المشاكل التي واجهتها أو تحتاج متابعة..."
                       className="min-h-[80px] sm:min-h-[100px]"
-                      required
                     />
                   </div>
                 )}

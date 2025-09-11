@@ -158,31 +158,29 @@ export default function ConsultationPage() {
                   <span className={isMobile ? "truncate" : ""}>نموذج الاستشارة الجديدة</span>
                 </CardTitle>
                 <CardDescription>
-                  املأ البيانات المطلوبة لإرسال طلب استشارة جديد
+أدخل البيانات التي تريد مشاركتها لإرسال طلب استشارة جديد
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="mobile-form space-y-3 sm:space-y-4">
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="clientName">اسم العميل *</Label>
+                      <Label htmlFor="clientName">اسم العميل</Label>
                       <Input
                         id="clientName"
                         value={formData.clientName}
                         onChange={(e) => handleInputChange("clientName", e.target.value)}
                         placeholder="أدخل اسم العميل"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="clientEmail">البريد الإلكتروني *</Label>
+                      <Label htmlFor="clientEmail">البريد الإلكتروني</Label>
                       <Input
                         id="clientEmail"
                         type="email"
                         value={formData.clientEmail}
                         onChange={(e) => handleInputChange("clientEmail", e.target.value)}
                         placeholder="client@example.com"
-                        required
                       />
                     </div>
                   </div>
@@ -209,25 +207,23 @@ export default function ConsultationPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="subject">موضوع الاستشارة *</Label>
+                    <Label htmlFor="subject">موضوع الاستشارة</Label>
                     <Input
                       id="subject"
                       value={formData.subject}
                       onChange={(e) => handleInputChange("subject", e.target.value)}
                       placeholder="أدخل موضوع الاستشارة"
-                      required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">تفاصيل الاستشارة *</Label>
+                    <Label htmlFor="message">تفاصيل الاستشارة</Label>
                     <Textarea
                       id="message"
                       value={formData.message}
                       onChange={(e) => handleInputChange("message", e.target.value)}
                       placeholder="اكتب تفاصيل الاستشارة هنا..."
                       className="min-h-[100px]"
-                      required
                     />
                   </div>
 

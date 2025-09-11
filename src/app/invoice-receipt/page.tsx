@@ -273,13 +273,12 @@ export default function InvoiceReceiptPage() {
                   <h3 className="text-base sm:text-lg font-semibold">بيانات المورد</h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="vendorName">اسم المورد *</Label>
+                      <Label htmlFor="vendorName">اسم المورد</Label>
                       <Input
                         id="vendorName"
                         value={formData.vendorName}
                         onChange={(e) => handleInputChange("vendorName", e.target.value)}
                         placeholder="أدخل اسم المورد"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -350,7 +349,7 @@ export default function InvoiceReceiptPage() {
                   </h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
                     <div className="space-y-2">
-                      <Label htmlFor="totalAmount">المبلغ الإجمالي *</Label>
+                      <Label htmlFor="totalAmount">المبلغ الإجمالي</Label>
                       <Input
                         id="totalAmount"
                         type="number"
@@ -359,7 +358,6 @@ export default function InvoiceReceiptPage() {
                         value={formData.totalAmount}
                         onChange={(e) => handleInputChange("totalAmount", parseFloat(e.target.value) || 0)}
                         placeholder="0.00"
-                        required
                       />
                     </div>
                     <div className="space-y-2">

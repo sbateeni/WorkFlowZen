@@ -286,26 +286,24 @@ export default function ServiceRequestPage() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="title">عنوان الطلب *</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => handleInputChange("title", e.target.value)}
-                    placeholder="أدخل عنواناً وصفياً للطلب"
-                    required
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="title">عنوان الطلب</Label>
+                    <Input
+                      id="title"
+                      value={formData.title}
+                      onChange={(e) => handleInputChange("title", e.target.value)}
+                      placeholder="أدخل عنواناً وصفياً للطلب"
+                    />
+                  </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">وصف تفصيلي للخدمة المطلوبة *</Label>
+                  <Label htmlFor="description">وصف تفصيلي للخدمة المطلوبة</Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) => handleInputChange("description", e.target.value)}
                     placeholder="اشرح تفاصيل الخدمة المطلوبة والمشكلة التي تحتاج حل..."
                     className="min-h-[100px] sm:min-h-[120px]"
-                    required
                   />
                 </div>
 
@@ -317,7 +315,7 @@ export default function ServiceRequestPage() {
                   </h3>
                   <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                     <div className="space-y-2">
-                      <Label htmlFor="priority">الأولوية *</Label>
+                      <Label htmlFor="priority">الأولوية</Label>
                       <Select value={formData.priority} onValueChange={(value) => handleInputChange("priority", value)}>
                         <SelectTrigger>
                           <SelectValue placeholder="اختر الأولوية" />
@@ -331,13 +329,12 @@ export default function ServiceRequestPage() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="requestedDate">التاريخ المطلوب *</Label>
+                      <Label htmlFor="requestedDate">التاريخ المطلوب</Label>
                       <Input
                         id="requestedDate"
                         type="date"
                         value={formData.requestedDate}
                         onChange={(e) => handleInputChange("requestedDate", e.target.value)}
-                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -365,46 +362,42 @@ export default function ServiceRequestPage() {
                   </h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="clientName">اسم العميل *</Label>
+                      <Label htmlFor="clientName">اسم العميل</Label>
                       <Input
                         id="clientName"
                         value={formData.clientName}
                         onChange={(e) => handleInputChange("clientName", e.target.value)}
                         placeholder="أدخل اسم العميل"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="clientEmail">البريد الإلكتروني *</Label>
+                      <Label htmlFor="clientEmail">البريد الإلكتروني</Label>
                       <Input
                         id="clientEmail"
                         type="email"
                         value={formData.clientEmail}
                         onChange={(e) => handleInputChange("clientEmail", e.target.value)}
                         placeholder="client@example.com"
-                        required
                       />
                     </div>
                   </div>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="clientPhone">رقم الهاتف *</Label>
+                      <Label htmlFor="clientPhone">رقم الهاتف</Label>
                       <Input
                         id="clientPhone"
                         value={formData.clientPhone}
                         onChange={(e) => handleInputChange("clientPhone", e.target.value)}
                         placeholder="+966 50 123 4567"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="location">الموقع *</Label>
+                      <Label htmlFor="location">الموقع</Label>
                       <Input
                         id="location"
                         value={formData.location}
                         onChange={(e) => handleInputChange("location", e.target.value)}
                         placeholder="العنوان أو الموقع المحدد"
-                        required
                       />
                     </div>
                   </div>

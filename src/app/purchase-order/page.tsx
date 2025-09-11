@@ -254,24 +254,22 @@ export default function PurchaseOrderPage() {
                 {/* Order Information */}
                 <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="orderNumber">رقم الطلب *</Label>
+                    <Label htmlFor="orderNumber">رقم الطلب</Label>
                     <Input
                       id="orderNumber"
                       value={formData.orderNumber}
                       onChange={(e) => handleInputChange("orderNumber", e.target.value)}
-                      required
                       readOnly
                       className="bg-muted"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="orderDate">تاريخ الطلب *</Label>
+                    <Label htmlFor="orderDate">تاريخ الطلب</Label>
                     <Input
                       id="orderDate"
                       type="date"
                       value={formData.orderDate}
                       onChange={(e) => handleInputChange("orderDate", e.target.value)}
-                      required
                     />
                   </div>
                 </div>
@@ -281,13 +279,12 @@ export default function PurchaseOrderPage() {
                   <h3 className="text-base sm:text-lg font-semibold">بيانات المورد</h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="supplier">اسم المورد *</Label>
+                      <Label htmlFor="supplier">اسم المورد</Label>
                       <Input
                         id="supplier"
                         value={formData.supplier}
                         onChange={(e) => handleInputChange("supplier", e.target.value)}
                         placeholder="أدخل اسم المورد"
-                        required
                       />
                     </div>
                     <div className="space-y-2">

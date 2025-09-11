@@ -252,7 +252,7 @@ export default function PaymentRequestPage() {
                 {/* Request Information */}
                 <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="requestId">رقم طلب الدفع *</Label>
+                    <Label htmlFor="requestId">رقم طلب الدفع</Label>
                     <Input
                       id="requestId"
                       value={formData.requestId}
@@ -279,13 +279,12 @@ export default function PaymentRequestPage() {
                   </h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="payeeName">اسم المستفيد *</Label>
+                      <Label htmlFor="payeeName">اسم المستفيد</Label>
                       <Input
                         id="payeeName"
                         value={formData.payeeName}
                         onChange={(e) => handleInputChange("payeeName", e.target.value)}
                         placeholder="أدخل اسم المستفيد"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -313,7 +312,7 @@ export default function PaymentRequestPage() {
                     المعلومات البنكية
                   </h3>
                   <div className="space-y-2">
-                    <Label htmlFor="paymentMethod">طريقة الدفع *</Label>
+                    <Label htmlFor="paymentMethod">طريقة الدفع</Label>
                     <Select value={formData.paymentMethod} onValueChange={(value) => handleInputChange("paymentMethod", value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر طريقة الدفع" />
@@ -331,23 +330,21 @@ export default function PaymentRequestPage() {
                   {formData.paymentMethod && formData.paymentMethod.includes("Bank Transfer") && (
                     <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        <Label htmlFor="bankName">اسم البنك *</Label>
+                        <Label htmlFor="bankName">اسم البنك</Label>
                         <Input
                           id="bankName"
                           value={formData.bankName}
                           onChange={(e) => handleInputChange("bankName", e.target.value)}
                           placeholder="أدخل اسم البنك"
-                          required
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="accountNumber">رقم الحساب *</Label>
+                        <Label htmlFor="accountNumber">رقم الحساب</Label>
                         <Input
                           id="accountNumber"
                           value={formData.accountNumber}
                           onChange={(e) => handleInputChange("accountNumber", e.target.value)}
                           placeholder="رقم الحساب البنكي"
-                          required
                         />
                       </div>
                       <div className="space-y-2 md:col-span-2">
@@ -371,7 +368,7 @@ export default function PaymentRequestPage() {
                   </h3>
                   <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
                     <div className="space-y-2">
-                      <Label htmlFor="amount">المبلغ *</Label>
+                      <Label htmlFor="amount">المبلغ</Label>
                       <Input
                         id="amount"
                         type="number"
@@ -380,7 +377,6 @@ export default function PaymentRequestPage() {
                         value={formData.amount}
                         onChange={(e) => handleInputChange("amount", parseFloat(e.target.value) || 0)}
                         placeholder="0.00"
-                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -409,7 +405,7 @@ export default function PaymentRequestPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="urgency">درجة الأولوية *</Label>
+                    <Label htmlFor="urgency">درجة الأولوية</Label>
                     <Select value={formData.urgency} onValueChange={(value) => handleInputChange("urgency", value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر درجة الأولوية" />
@@ -425,14 +421,13 @@ export default function PaymentRequestPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="purpose">الغرض من الدفع *</Label>
+                    <Label htmlFor="purpose">الغرض من الدفع</Label>
                     <Textarea
                       id="purpose"
                       value={formData.purpose}
                       onChange={(e) => handleInputChange("purpose", e.target.value)}
                       placeholder="اشرح الغرض من الدفع والخدمات أو المنتجات المدفوع لأجلها..."
                       className="min-h-[80px] sm:min-h-[100px]"
-                      required
                     />
                   </div>
                 </div>
