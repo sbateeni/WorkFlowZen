@@ -25,6 +25,7 @@ import {
   Building,
   User
 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
 import { useToast } from "@/hooks/use-toast";
 import { useMobile } from "@/hooks/use-mobile";
@@ -572,7 +573,7 @@ export default function PaymentRequestPage() {
                     </div>
                     <div className="flex justify-between items-center mt-1">
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {request.amount.toFixed(2)} ₪
+                        {formatCurrency(request.amount, "ILS", "ar")}
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {request.paymentDate}
@@ -617,7 +618,7 @@ export default function PaymentRequestPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي المبالغ</span>
                 <span className="font-semibold text-primary">
-                  {samplePaymentRequests.reduce((sum, r) => sum + r.amount, 0).toFixed(2)} ₪
+                  {formatCurrency(samplePaymentRequests.reduce((sum, r) => sum + r.amount, 0), "ILS", "ar")}
                 </span>
               </div>
             </CardContent>

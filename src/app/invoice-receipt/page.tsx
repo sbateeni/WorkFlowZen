@@ -23,6 +23,7 @@ import {
   Clock,
   DollarSign
 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
 import { useToast } from "@/hooks/use-toast";
 import { useMobile } from "@/hooks/use-mobile";
@@ -528,7 +529,7 @@ export default function InvoiceReceiptPage() {
                     </div>
                     <div className="flex justify-between items-center mt-1">
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {invoice.totalAmount.toFixed(2)} ₪
+                        {formatCurrency(invoice.totalAmount, "ILS", "ar")}
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {invoice.invoiceDate}
@@ -573,7 +574,7 @@ export default function InvoiceReceiptPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي القيمة</span>
                 <span className="font-semibold text-primary">
-                  {sampleInvoices.reduce((sum, i) => sum + i.totalAmount, 0).toFixed(2)} ₪
+                  {formatCurrency(sampleInvoices.reduce((sum, i) => sum + i.totalAmount, 0), "ILS", "ar")}
                 </span>
               </div>
             </CardContent>

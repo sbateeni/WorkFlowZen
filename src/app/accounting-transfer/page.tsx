@@ -30,6 +30,7 @@ import {
 import { useLanguage } from "@/lib/language-context";
 import { useToast } from "@/hooks/use-toast";
 import { useMobile } from "@/hooks/use-mobile";
+import { formatCurrency } from "@/lib/utils";
 
 interface AccountingTransferData {
   transferId: string;
@@ -608,7 +609,7 @@ export default function AccountingTransferPage() {
                         {transfer.totalRecords} سجل
                       </span>
                       <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {transfer.totalAmount.toFixed(2)} ₪
+                        {formatCurrency(transfer.totalAmount, "ILS", "ar")}
                       </span>
                     </div>
                   </div>
@@ -656,7 +657,7 @@ export default function AccountingTransferPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">إجمالي المبالغ</span>
                 <span className="font-semibold text-primary">
-                  {sampleTransfers.reduce((sum, t) => sum + t.totalAmount, 0).toFixed(2)} ₪
+                  {formatCurrency(sampleTransfers.reduce((sum, t) => sum + t.totalAmount, 0), "ILS", "ar")}
                 </span>
               </div>
             </CardContent>
