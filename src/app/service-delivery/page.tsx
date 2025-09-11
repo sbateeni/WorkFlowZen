@@ -57,41 +57,7 @@ const deliveryStatuses = [
   { value: "issues", label: "يحتاج متابعة - Needs Follow-up", color: "destructive" }
 ];
 
-const sampleDeliveries = [
-  {
-    id: 1,
-    deliveryId: "DEL-2024-001",
-    serviceRequestId: "SR-2024-001",
-    clientName: "شركة التقنيات المتقدمة",
-    serviceType: "صيانة أنظمة الشبكة",
-    status: "completed",
-    deliveryDate: "2024-01-16",
-    technician: "أحمد محمد",
-    rating: 5
-  },
-  {
-    id: 2,
-    deliveryId: "DEL-2024-002",
-    serviceRequestId: "SR-2024-002", 
-    clientName: "Advanced Solutions Ltd",
-    serviceType: "System Configuration",
-    status: "partial",
-    deliveryDate: "2024-01-18",
-    technician: "Sarah Johnson",
-    rating: 4
-  },
-  {
-    id: 3,
-    deliveryId: "DEL-2024-003",
-    serviceRequestId: "SR-2024-003",
-    clientName: "مؤسسة الأمان الشامل",
-    serviceType: "استشارة أمنية",
-    status: "issues",
-    deliveryDate: "2024-01-15",
-    technician: "محمد علي",
-    rating: 3
-  }
-];
+const sampleDeliveries: any[] = [];
 
 export default function ServiceDeliveryPage() {
   const { t, isRTL } = useLanguage();
@@ -462,33 +428,40 @@ export default function ServiceDeliveryPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 sm:space-y-4">
-              {sampleDeliveries.map((delivery) => (
-                <div key={delivery.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                  <CheckCircle className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-xs sm:text-sm truncate">
-                      {delivery.deliveryId}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {isMobile ? delivery.serviceType.substring(0, 20) + '...' : delivery.serviceType}
-                    </p>
-                    <div className="flex items-center gap-2 mt-2 flex-wrap">
-                      {getStatusBadge(delivery.status)}
-                      <div className="flex items-center gap-1">
-                        {renderStars(delivery.rating)}
+              {sampleDeliveries.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <p>لا توجد عمليات تسليم سابقة</p>
+                  <p className="text-sm">No previous deliveries</p>
+                </div>
+              ) : (
+                sampleDeliveries.map((delivery) => (
+                  <div key={delivery.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
+                    <CheckCircle className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-xs sm:text-sm truncate">
+                        {delivery.deliveryId}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {isMobile ? delivery.serviceType.substring(0, 20) + '...' : delivery.serviceType}
+                      </p>
+                      <div className="flex items-center gap-2 mt-2 flex-wrap">
+                        {getStatusBadge(delivery.status)}
+                        <div className="flex items-center gap-1">
+                          {renderStars(delivery.rating)}
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs text-muted-foreground">
+                          {delivery.deliveryDate}
+                        </span>
+                        <span className="text-xs text-muted-foreground truncate max-w-[100px]">
+                          {delivery.technician}
+                        </span>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-xs text-muted-foreground">
-                        {delivery.deliveryDate}
-                      </span>
-                      <span className="text-xs text-muted-foreground truncate max-w-[100px]">
-                        {delivery.technician}
-                      </span>
-                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </CardContent>
           </Card>
 
@@ -517,7 +490,7 @@ export default function ServiceDeliveryPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs sm:text-sm">متوسط التقييم</span>
                 <div className="flex items-center gap-1">
-                  {renderStars(Math.round(sampleDeliveries.reduce((sum, d) => sum + d.rating, 0) / sampleDeliveries.length))}
+                  {sampleDeliveries.length > 0 ? renderStars(Math.round(sampleDeliveries.reduce((sum, d) => sum + d.rating, 0) / sampleDeliveries.length)) : renderStars(0)}
                 </div>
               </div>
             </CardContent>
