@@ -231,13 +231,12 @@ export default function DataEntryPage() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="mobile-form space-y-3 sm:space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="title">عنوان المستند *</Label>
+                    <Label htmlFor="title">عنوان المستند</Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) => handleInputChange("title", e.target.value)}
                       placeholder="أدخل عنوان المستند"
-                      required
                     />
                   </div>
 
@@ -253,13 +252,12 @@ export default function DataEntryPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="category">الفئة *</Label>
+                    <Label htmlFor="category">الفئة</Label>
                     <select
                       id="category"
                       value={formData.category}
                       onChange={(e) => handleInputChange("category", e.target.value)}
                       className="w-full h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                      required
                     >
                       <option value="">اختر الفئة</option>
                       {documentCategories.map((category) => (
@@ -281,13 +279,12 @@ export default function DataEntryPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="file">رفع الملف *</Label>
+                    <Label htmlFor="file">رفع الملف</Label>
                     <Input
                       id="file"
                       type="file"
                       onChange={handleFileUpload}
                       accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png,.gif"
-                      required
                     />
                     <p className="text-xs text-muted-foreground">
                       الملفات المسموحة: PDF, Word, Excel, Images (أقصى حجم: 10MB)
