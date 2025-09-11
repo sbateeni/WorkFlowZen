@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import { MobileLayout } from "@/components/mobile-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +27,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-screen bg-background p-6">
-            <div className="mx-auto max-w-7xl">
-              {children}
-            </div>
-          </div>
+          <MobileLayout>
+            {children}
+          </MobileLayout>
         </Providers>
       </body>
     </html>

@@ -12,7 +12,10 @@ import {
   CreditCard, 
   CheckCircle, 
   Send,
-  LayoutDashboard
+  LayoutDashboard,
+  ShieldAlert,
+  BarChart3,
+  Settings2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/language-context";
@@ -82,6 +85,30 @@ const navigationItems = [
     href: "/accounting-transfer",
     icon: Send,
     step: 9,
+  },
+  {
+    name: "qualityAssurance",
+    href: "/quality-assurance",
+    icon: CheckCircle,
+    step: 17,
+  },
+  {
+    name: "riskManagement",
+    href: "/risk-management",
+    icon: ShieldAlert,
+    step: 18,
+  },
+  {
+    name: "executiveDashboard",
+    href: "/executive-dashboard",
+    icon: BarChart3,
+    step: 19,
+  },
+  {
+    name: "admin",
+    href: "/admin",
+    icon: Settings2,
+    step: 20,
   },
 ];
 
