@@ -265,12 +265,12 @@ export default function ConsultationPage() {
                       {isSubmitting ? (
                         <>
                           <Clock className="mr-2 h-4 w-4 animate-spin" />
-                          جاري الإرسال...
+                          جاري الحفظ...
                         </>
                       ) : (
                         <>
                           <Send className="mr-2 h-4 w-4" />
-                          إرسال الاستشارة
+                          حفظ الاستشارة
                         </>
                       )}
                     </Button>
