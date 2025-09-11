@@ -6,6 +6,15 @@ const nextConfig = {
   // Performance optimizations
   swcMinify: true,
   
+  // Explicitly configure to avoid conflicts
+  transpilePackages: [], // Empty to avoid conflicts
+  
+  // Experimental configuration
+  experimental: {
+    // Only include packages that need external handling
+    serverComponentsExternalPackages: [],
+  },
+  
   // Image optimization
   images: {
     remotePatterns: [
