@@ -315,7 +315,7 @@ export default function DashboardPage() {
               history.map((h, idx) => (
                 <div key={`${h.stepId}-${h.at}-${idx}`} className="flex items-center justify-between text-sm p-2 border rounded-md">
                   <span>{t(computedSteps.find(s => s.id === h.stepId)?.name || 'خطوة')}</span>
-                  <span className="text-muted-foreground">{new Date(h.at).toLocaleString('ar-SA')}</span>
+                  <span className="text-muted-foreground">{new Date(h.at).toLocaleString('en-US')}</span>
                 </div>
               ))
             )}
