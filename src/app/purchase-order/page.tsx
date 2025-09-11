@@ -246,7 +246,7 @@ export default function PurchaseOrderPage() {
                 <span className={isMobile ? "truncate" : ""}>طلب شراء جديد</span>
               </CardTitle>
               <CardDescription>
-                أنشئ طلب شراء جديد مع تفاصيل الأصناف والمورد
+                أدخل البيانات التي تريد مشاركتها لإنشاء طلب شراء جديد
               </CardDescription>
             </CardHeader>
             <CardContent>

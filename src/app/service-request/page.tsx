@@ -66,38 +66,7 @@ const serviceRequirements = [
   "نسخ احتياطية - Backup Copies"
 ];
 
-const sampleRequests = [
-  {
-    id: 1,
-    requestNumber: "SR-2024-001",
-    title: "صيانة أنظمة الشبكة",
-    serviceType: "technical",
-    status: "in_progress",
-    priority: "high",
-    requestedDate: "2024-01-16",
-    clientName: "شركة التقنيات المتقدمة"
-  },
-  {
-    id: 2,
-    requestNumber: "SR-2024-002", 
-    title: "System Configuration Setup",
-    serviceType: "installation",
-    status: "pending",
-    priority: "medium",
-    requestedDate: "2024-01-18",
-    clientName: "Advanced Solutions Ltd"
-  },
-  {
-    id: 3,
-    requestNumber: "SR-2024-003",
-    title: "استشارة أمنية للأنظمة",
-    serviceType: "security",
-    status: "completed",
-    priority: "urgent",
-    requestedDate: "2024-01-15",
-    clientName: "مؤسسة الأمان الشامل"
-  }
-];
+const sampleRequests: any[] = [];
 
 export default function ServiceRequestPage() {
   const { t, isRTL } = useLanguage();
@@ -501,34 +470,41 @@ export default function ServiceRequestPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 sm:space-y-4">
-              {sampleRequests.map((request) => (
-                <div key={request.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                  <div className="flex flex-col items-center gap-1">
-                    {getStatusIcon(request.status)}
-                    {getServiceTypeIcon(request.serviceType)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-xs sm:text-sm truncate">
-                      {request.requestNumber}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {isMobile ? request.title.substring(0, 25) + '...' : request.title}
-                    </p>
-                    <div className="flex items-center gap-1 sm:gap-2 mt-2 flex-wrap">
-                      {getStatusBadge(request.status)}
-                      {getPriorityBadge(request.priority)}
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-xs text-muted-foreground">
-                        {request.requestedDate}
-                      </span>
-                      <span className="text-xs text-muted-foreground truncate max-w-[100px]">
-                        {request.clientName}
-                      </span>
-                    </div>
-                  </div>
+              {sampleRequests.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <p>لا توجد طلبات سابقة</p>
+                  <p className="text-sm">No previous requests</p>
                 </div>
-              ))}
+              ) : (
+                sampleRequests.map((request) => (
+                  <div key={request.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
+                    <div className="flex flex-col items-center gap-1">
+                      {getStatusIcon(request.status)}
+                      {getServiceTypeIcon(request.serviceType)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-xs sm:text-sm truncate">
+                        {request.requestNumber}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {isMobile ? request.title.substring(0, 25) + '...' : request.title}
+                      </p>
+                      <div className="flex items-center gap-1 sm:gap-2 mt-2 flex-wrap">
+                        {getStatusBadge(request.status)}
+                        {getPriorityBadge(request.priority)}
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs text-muted-foreground">
+                          {request.requestedDate}
+                        </span>
+                        <span className="text-xs text-muted-foreground truncate max-w-[100px]">
+                          {request.clientName}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </CardContent>
           </Card>
 

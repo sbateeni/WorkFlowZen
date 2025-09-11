@@ -68,38 +68,7 @@ const urgencyLevels = [
   { value: "low", label: "منخفض - خلال شهر", color: "outline" }
 ];
 
-const samplePaymentRequests = [
-  {
-    id: 1,
-    requestId: "PAY-REQ-2024-001",
-    payeeName: "شركة التقنيات المتقدمة",
-    amount: 15750.00,
-    status: "approved",
-    paymentDate: "2024-01-20",
-    urgency: "normal",
-    purpose: "فاتورة خدمات تقنية"
-  },
-  {
-    id: 2,
-    requestId: "PAY-REQ-2024-002",
-    payeeName: "Advanced Solutions Ltd",
-    amount: 8900.00,
-    status: "pending",
-    paymentDate: "2024-01-22",
-    urgency: "high",
-    purpose: "استشارات تقنية"
-  },
-  {
-    id: 3,
-    requestId: "PAY-REQ-2024-003",
-    payeeName: "محمد أحمد - مطور",
-    amount: 5200.00,
-    status: "review",
-    paymentDate: "2024-01-25",
-    urgency: "urgent",
-    purpose: "راتب شهري"
-  }
-];
+const samplePaymentRequests: any[] = [];
 
 export default function PaymentRequestPage() {
   const { t, isRTL } = useLanguage();
@@ -549,42 +518,49 @@ export default function PaymentRequestPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 sm:space-y-4">
-              {samplePaymentRequests.map((request) => (
-                <div key={request.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                  {getStatusIcon(request.status)}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-xs sm:text-sm truncate">
-                      {request.requestId}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {isMobile ? request.payeeName.substring(0, 20) + '...' : request.payeeName}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {isMobile ? request.purpose.substring(0, 25) + '...' : request.purpose}
-                    </p>
-                    <div className="flex items-center gap-1 sm:gap-2 mt-2 flex-wrap">
-                      {getStatusBadge(request.status)}
-                      {getUrgencyBadge(request.urgency)}
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {formatCurrency(request.amount, "ILS", "ar")}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {request.paymentDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
-                      <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
-                      <Download className="h-3 w-3 sm:h-4 sm:w-4" />
-                    </Button>
-                  </div>
+              {samplePaymentRequests.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <p>لا توجد طلبات دفع سابقة</p>
+                  <p className="text-sm">No previous payment requests</p>
                 </div>
-              ))}
+              ) : (
+                samplePaymentRequests.map((request) => (
+                  <div key={request.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
+                    {getStatusIcon(request.status)}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-xs sm:text-sm truncate">
+                        {request.requestId}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {isMobile ? request.payeeName.substring(0, 20) + '...' : request.payeeName}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {isMobile ? request.purpose.substring(0, 25) + '...' : request.purpose}
+                      </p>
+                      <div className="flex items-center gap-1 sm:gap-2 mt-2 flex-wrap">
+                        {getStatusBadge(request.status)}
+                        {getUrgencyBadge(request.urgency)}
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs sm:text-sm font-semibold text-primary">
+                          {formatCurrency(request.amount, "ILS", "ar")}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {request.paymentDate}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
+                        <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
+                        <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              )}
             </CardContent>
           </Card>
 

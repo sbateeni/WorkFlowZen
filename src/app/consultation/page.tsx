@@ -25,32 +25,7 @@ interface ConsultationData {
   expectedResponse: string;
 }
 
-const consultationHistory = [
-  {
-    id: 1,
-    clientName: "أحمد محمد",
-    subject: "استشارة تقنية حول النظام",
-    status: "completed",
-    createdAt: "2024-01-15",
-    responseTime: "2 ساعة",
-  },
-  {
-    id: 2,
-    clientName: "Sarah Johnson",
-    subject: "System Integration Consultation",
-    status: "pending",
-    createdAt: "2024-01-16",
-    responseTime: "منتظر",
-  },
-  {
-    id: 3,
-    clientName: "محمد علي",
-    subject: "استشارة مالية",
-    status: "in_progress",
-    createdAt: "2024-01-16",
-    responseTime: "قيد المعالجة",
-  },
-];
+const consultationHistory: any[] = [];
 
 export default function ConsultationPage() {
   const { t, isRTL } = useLanguage();
@@ -306,28 +281,35 @@ export default function ConsultationPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {consultationHistory.map((consultation) => (
-                  <div key={consultation.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                    {getStatusIcon(consultation.status)}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-xs sm:text-sm truncate">
-                        {consultation.clientName}
-                      </p>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {isMobile ? consultation.subject.substring(0, 30) + '...' : consultation.subject}
-                      </p>
-                      <div className="flex items-center gap-2 mt-2">
-                        {getStatusBadge(consultation.status)}
-                        <span className="text-xs text-muted-foreground">
-                          {consultation.createdAt}
-                        </span>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        وقت الرد: {consultation.responseTime}
-                      </p>
-                    </div>
+                {consultationHistory.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p>لا توجد استشارات سابقة</p>
+                    <p className="text-sm">No previous consultations</p>
                   </div>
-                ))}
+                ) : (
+                  consultationHistory.map((consultation) => (
+                    <div key={consultation.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
+                      {getStatusIcon(consultation.status)}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-xs sm:text-sm truncate">
+                          {consultation.clientName}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {isMobile ? consultation.subject.substring(0, 30) + '...' : consultation.subject}
+                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                          {getStatusBadge(consultation.status)}
+                          <span className="text-xs text-muted-foreground">
+                            {consultation.createdAt}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          وقت الرد: {consultation.responseTime}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </CardContent>
             </Card>
           </div>
