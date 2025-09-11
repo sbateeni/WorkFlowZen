@@ -60,10 +60,10 @@ export const translations = {
     stepCurrent: "الخطوة الحالية",
     
     // Forms
-    required: "مطلوب",
+    required: "اختياري",
     optional: "اختياري",
-    pleaseSelect: "يرجى الاختيار",
-    pleaseEnter: "يرجى الإدخال",
+    pleaseSelect: "يمكنك الاختيار",
+    pleaseEnter: "يمكنك الإدخال",
     
     // Messages
     success: "تم بنجاح",
@@ -141,10 +141,10 @@ export const translations = {
     stepCurrent: "Current Step",
     
     // Forms
-    required: "Required",
+    required: "Optional",
     optional: "Optional",
-    pleaseSelect: "Please Select",
-    pleaseEnter: "Please Enter",
+    pleaseSelect: "You may select",
+    pleaseEnter: "You may enter",
     
     // Messages
     success: "Success",

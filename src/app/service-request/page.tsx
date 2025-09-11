@@ -250,7 +250,7 @@ export default function ServiceRequestPage() {
                 <span className={isMobile ? "truncate" : ""}>طلب خدمة جديد</span>
               </CardTitle>
               <CardDescription>
-                أنشئ طلب خدمة جديد مع تحديد نوع الخدمة والمتطلبات
+                أدخل البيانات التي تريد مشاركتها لإنشاء طلب خدمة جديد
               </CardDescription>
             </CardHeader>
             <CardContent>

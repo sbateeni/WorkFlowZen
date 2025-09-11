@@ -244,7 +244,7 @@ export default function PaymentRequestPage() {
                 <span className={isMobile ? "truncate" : ""}>طلب دفع جديد</span>
               </CardTitle>
               <CardDescription>
-                أنشئ طلب دفع جديد مع تحديد تفاصيل المستفيد والمبلغ
+                أدخل البيانات التي تريد مشاركتها لإنشاء طلب دفع جديد
               </CardDescription>
             </CardHeader>
             <CardContent>
