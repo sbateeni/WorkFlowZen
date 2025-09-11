@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useLanguage } from '@/hooks/use-language';
+import { useLanguage } from '@/lib/language-context';
 import { useMobile } from '@/hooks/use-mobile';
 import { 
   FileText, 

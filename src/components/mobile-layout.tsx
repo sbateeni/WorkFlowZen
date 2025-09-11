@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Navigation } from "@/components/navigation";
-import { useLanguage } from "@/hooks/use-language";
+import { useLanguage } from "@/lib/language-context";
 import { useMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 
@@ -104,4 +104,4 @@ export function MobileLayout({ children }: MobileLayoutProps) {
       </div>
     </div>
   );
-}"
+}

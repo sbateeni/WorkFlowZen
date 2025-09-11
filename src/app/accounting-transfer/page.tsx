@@ -409,8 +409,8 @@ export default function AccountingTransferPage() {
                         <Checkbox
                           id={document}
                           checked={formData.includedDocuments.includes(document)}
-                          onCheckedChange={(checked) => 
-                            handleDocumentToggle(document, checked as boolean)
+                          onCheckedChange={(checked: boolean) => 
+                            handleDocumentToggle(document, checked)
                           }
                         />
                         <Label 
@@ -436,7 +436,7 @@ export default function AccountingTransferPage() {
                       <Checkbox
                         id="encryptionEnabled"
                         checked={formData.encryptionEnabled}
-                        onCheckedChange={(checked) => handleInputChange("encryptionEnabled", checked as boolean)}
+                        onCheckedChange={(checked: boolean) => handleInputChange("encryptionEnabled", checked)}
                       />
                       <Label htmlFor="encryptionEnabled" className="text-sm font-normal cursor-pointer">
                         تشفير الملفات قبل النقل
