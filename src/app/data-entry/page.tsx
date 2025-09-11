@@ -175,7 +175,7 @@ export default function DataEntryPage() {
       case "jpg":
       case "png":
       case "gif":
-        return <Image className="h-4 w-4 text-purple-500" />;
+        return <Image className="h-4 w-4 text-purple-500" aria-label="Image file" />;
       default:
         return <File className="h-4 w-4 text-gray-500" />;
     }

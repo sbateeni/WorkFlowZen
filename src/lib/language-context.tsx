@@ -37,10 +37,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const isRTL = language === "ar";
 
-  // Apply RTL to document when language changes
+  // Apply RTL to document when language changes (client-side only)
   React.useEffect(() => {
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    document.documentElement.lang = language;
+    if (typeof window !== 'undefined') {
+      document.documentElement.dir = isRTL ? "rtl" : "ltr";
+      document.documentElement.lang = language;
+    }
   }, [language, isRTL]);
 
   const value = {

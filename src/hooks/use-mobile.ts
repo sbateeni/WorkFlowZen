@@ -9,6 +9,8 @@ export function useMobile() {
 
   useEffect(() => {
     const checkDevice = () => {
+      if (typeof window === 'undefined') return;
+      
       const width = window.innerWidth;
       const height = window.innerHeight;
       
@@ -21,10 +23,16 @@ export function useMobile() {
     checkDevice();
 
     // Add event listener for resize
-    window.addEventListener('resize', checkDevice);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', checkDevice);
+    }
 
     // Cleanup
-    return () => window.removeEventListener('resize', checkDevice);
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', checkDevice);
+      }
+    };
   }, []);
 
   return {
@@ -33,7 +41,7 @@ export function useMobile() {
     isDesktop: !isMobile && !isTablet,
     screenSize,
     // Helper functions
-    isTouchDevice: () => 'ontouchstart' in window,
+    isTouchDevice: () => typeof window !== 'undefined' && 'ontouchstart' in window,
     isLandscape: () => screenSize.width > screenSize.height,
     isPortrait: () => screenSize.height > screenSize.width,
   };
