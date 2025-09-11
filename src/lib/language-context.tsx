@@ -8,7 +8,7 @@ type Language = "ar" | "en";
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, fallback?: string) => string;
   isRTL: boolean;
 }
 
@@ -17,15 +17,22 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("ar");
 
-  const t = (key: string): string => {
-    const keys = key.split(".");
-    let value: any = translations[language];
-    
-    for (const k of keys) {
-      value = value?.[k];
+  const t = (key: string, fallback?: string): string => {
+    // If key contains '.', try to get from translations object
+    if (key.includes('.')) {
+      const keys = key.split(".");
+      let value: any = translations[language];
+      
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      
+      return value || fallback || key;
     }
     
-    return value || key;
+    // Otherwise, use direct key lookup or return fallback
+    const value = translations[language][key as keyof typeof translations[typeof language]];
+    return value || fallback || key;
   };
 
   const isRTL = language === "ar";
