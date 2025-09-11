@@ -6,6 +6,11 @@ const nextConfig = {
   // Performance optimizations
   swcMinify: true,
   
+  // Experimental features for stability
+  experimental: {
+    serverComponentsExternalPackages: ['@radix-ui/react-toast'],
+  },
+  
   // Image optimization
   images: {
     remotePatterns: [
@@ -26,6 +31,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  
+  // Output for static export
+  output: 'standalone',
 };
 
 module.exports = nextConfig;
