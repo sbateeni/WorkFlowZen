@@ -58,6 +58,7 @@ export function DashboardClient({ workflowSteps }: DashboardClientProps) {
   
   const completedSteps = workflowSteps.filter(step => step.status === "completed").length;
   const progressPercentage = (completedSteps / workflowSteps.length) * 100;
+  const currentStep = workflowSteps.find((s) => s.status === "current");
 
   return (
     <div className="space-y-6">
@@ -187,8 +188,8 @@ export function DashboardClient({ workflowSteps }: DashboardClientProps) {
             <CardTitle className="text-sm font-medium">المهمة الحالية</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">2</div>
-            <p className="text-xs text-muted-foreground">إدخال البيانات</p>
+            <div className="text-2xl font-bold text-blue-600">{currentStep ? currentStep.id : '-'}</div>
+            <p className="text-xs text-muted-foreground">{currentStep ? t(currentStep.name) : '-'}</p>
           </CardContent>
         </Card>
         

@@ -26,7 +26,7 @@ interface ConsultationData {
   expectedResponse: string;
 }
 
-const consultationHistory: any[] = [];
+// Removed dummy consultationHistory array; real history is loaded from IndexedDB via useConsultations
 
 export default function ConsultationPage() {
   const { t, isRTL } = useLanguage();

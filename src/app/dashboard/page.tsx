@@ -21,90 +21,25 @@ import {
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-context";
 import { useMobile } from "@/hooks/use-mobile";
+import { 
+  useConsultations,
+  useServiceRequests,
+  usePurchaseOrders,
+  useServiceDeliveries,
+  useInvoiceReceipts,
+  usePaymentRequests
+} from "@/hooks/use-indexeddb";
 
-const workflowSteps = [
-  {
-    id: 1,
-    name: "consultation",
-    href: "/consultation",
-    icon: Mail,
-    status: "completed",
-    description: "إرسال إيميل استشارة للعميل",
-    completedAt: "2024-01-15",
-  },
-  {
-    id: 2,
-    name: "dataEntry",
-    href: "/data-entry",
-    icon: FileText,
-    status: "current",
-    description: "إدخال البيانات والوثائق المطلوبة",
-    completedAt: null,
-  },
-  {
-    id: 3,
-    name: "purchaseOrder",
-    href: "/purchase-order",
-    icon: ShoppingCart,
-    status: "pending",
-    description: "تقديم طلب أمر الشراء",
-    completedAt: null,
-  },
-  {
-    id: 4,
-    name: "serviceRequest",
-    href: "/service-request",
-    icon: Settings,
-    status: "pending",
-    description: "تقديم طلب الخدمة المحددة",
-    completedAt: null,
-  },
-  {
-    id: 5,
-    name: "serviceDelivery",
-    href: "/service-delivery",
-    icon: Truck,
-    status: "pending",
-    description: "تأكيد تسليم الخدمة للعميل",
-    completedAt: null,
-  },
-  {
-    id: 6,
-    name: "invoiceReceipt",
-    href: "/invoice-receipt",
-    icon: Receipt,
-    status: "pending",
-    description: "استلام وإدخال بيانات الفاتورة",
-    completedAt: null,
-  },
-  {
-    id: 7,
-    name: "paymentRequest",
-    href: "/payment-request",
-    icon: CreditCard,
-    status: "pending",
-    description: "تقديم طلب صرف دفعة مالية",
-    completedAt: null,
-  },
-  {
-    id: 8,
-    name: "paymentApproval",
-    href: "/payment-approval",
-    icon: CheckCircle,
-    status: "pending",
-    description: "انتظار موافقة الدفع",
-    completedAt: null,
-  },
-  {
-    id: 9,
-    name: "accountingTransfer",
-    href: "/accounting-transfer",
-    icon: Send,
-    status: "pending",
-    description: "إرسال الملف لقسم المحاسبة",
-    completedAt: null,
-  },
-];
+type StepStatus = "completed" | "current" | "pending";
+type Step = {
+  id: number;
+  name: string;
+  href: string;
+  icon: any;
+  status: StepStatus;
+  description: string;
+  completedAt: string | null;
+};
 
 const getStatusVariant = (status: string) => {
   switch (status) {
@@ -135,9 +70,58 @@ const getStatusIcon = (status: string) => {
 export default function DashboardPage() {
   const { t, isRTL } = useLanguage();
   const { isMobile } = useMobile();
+  const { stats: consultationsStats } = useConsultations();
+  const { stats: serviceRequestsStats } = useServiceRequests();
+  const { stats: purchaseOrdersStats } = usePurchaseOrders();
+  const { stats: serviceDeliveriesStats } = useServiceDeliveries();
+  const { stats: invoiceReceiptsStats } = useInvoiceReceipts();
+  const { stats: paymentRequestsStats } = usePaymentRequests();
   
-  const completedSteps = workflowSteps.filter(step => step.status === "completed").length;
-  const progressPercentage = (completedSteps / workflowSteps.length) * 100;
+  const baseSteps: Omit<Step, "status">[] = [
+    { id: 1, name: "consultation", href: "/consultation", icon: Mail, description: "إرسال إيميل استشارة للعميل", completedAt: null },
+    { id: 2, name: "dataEntry", href: "/data-entry", icon: FileText, description: "إدخال البيانات والوثائق المطلوبة", completedAt: null },
+    { id: 3, name: "purchaseOrder", href: "/purchase-order", icon: ShoppingCart, description: "تقديم طلب أمر الشراء", completedAt: null },
+    { id: 4, name: "serviceRequest", href: "/service-request", icon: Settings, description: "تقديم طلب الخدمة المحددة", completedAt: null },
+    { id: 5, name: "serviceDelivery", href: "/service-delivery", icon: Truck, description: "تأكيد تسليم الخدمة للعميل", completedAt: null },
+    { id: 6, name: "invoiceReceipt", href: "/invoice-receipt", icon: Receipt, description: "استلام وإدخال بيانات الفاتورة", completedAt: null },
+    { id: 7, name: "paymentRequest", href: "/payment-request", icon: CreditCard, description: "تقديم طلب صرف دفعة مالية", completedAt: null },
+    { id: 8, name: "paymentApproval", href: "/payment-approval", icon: CheckCircle, description: "انتظار موافقة الدفع", completedAt: null },
+    { id: 9, name: "accountingTransfer", href: "/accounting-transfer", icon: Send, description: "إرسال الملف لقسم المحاسبة", completedAt: null },
+  ];
+  
+  const totalsByStepId: Record<number, number> = {
+    1: consultationsStats?.total || 0,
+    2: 0, // data-entry page may store multiple types; keep as progress-only step
+    3: purchaseOrdersStats?.total || 0,
+    4: serviceRequestsStats?.total || 0,
+    5: serviceDeliveriesStats?.total || 0,
+    6: invoiceReceiptsStats?.total || 0,
+    7: paymentRequestsStats?.total || 0,
+    8: 0,
+    9: 0,
+  };
+  
+  const computedSteps: Step[] = baseSteps.map((s) => ({
+    ...s,
+    status: "pending",
+  }));
+  
+  // Mark steps as completed where there is persisted data
+  for (const step of computedSteps) {
+    if ((totalsByStepId[step.id] || 0) > 0) {
+      step.status = "completed";
+    }
+  }
+  
+  // Determine current step as the first non-completed step
+  const firstPendingIndex = computedSteps.findIndex((s) => s.status !== "completed");
+  if (firstPendingIndex !== -1) {
+    computedSteps[firstPendingIndex].status = "current";
+  }
+  
+  const completedSteps = computedSteps.filter(step => step.status === "completed").length;
+  const progressPercentage = (completedSteps / computedSteps.length) * 100;
+  const currentStep = computedSteps.find(s => s.status === "current");
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -179,7 +163,7 @@ export default function DashboardPage() {
         <h2 className="text-xl sm:text-2xl font-semibold">خطوات سير العمل - Workflow Steps</h2>
         
         <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {workflowSteps.map((step, index) => {
+          {computedSteps.map((step, index) => {
             const Icon = step.icon;
             const StatusIcon = getStatusIcon(step.status);
             
