@@ -483,33 +483,40 @@ export default function PurchaseOrderPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 sm:space-y-4">
-              {sampleOrders.map((order) => (
-                <div key={order.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                  {getStatusIcon(order.status)}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-xs sm:text-sm truncate">
-                      {order.orderNumber}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {isMobile ? order.supplier.substring(0, 20) + '...' : order.supplier}
-                    </p>
-                    <div className="flex items-center gap-2 mt-2">
-                      {getStatusBadge(order.status)}
-                      <span className="text-xs text-muted-foreground">
-                        {order.createdAt}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {order.total.toFixed(2)} ر.س
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        التسليم: {order.expectedDelivery}
-                      </span>
+              {sampleOrders.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <p>لا توجد طلبات سابقة</p>
+                  <p className="text-sm">No previous orders</p>
+                </div>
+              ) : (
+                sampleOrders.map((order) => (
+                  <div key={order.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
+                    {getStatusIcon(order.status)}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-xs sm:text-sm truncate">
+                        {order.orderNumber}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {isMobile ? order.supplier.substring(0, 20) + '...' : order.supplier}
+                      </p>
+                      <div className="flex items-center gap-2 mt-2">
+                        {getStatusBadge(order.status)}
+                        <span className="text-xs text-muted-foreground">
+                          {order.createdAt}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs sm:text-sm font-semibold text-primary">
+                          {order.total.toFixed(2)} ر.س
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          التسليم: {order.expectedDelivery}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </CardContent>
           </Card>
 

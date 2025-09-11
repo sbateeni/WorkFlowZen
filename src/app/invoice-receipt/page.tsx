@@ -61,41 +61,7 @@ const invoiceCategories = [
   "أخرى - Others"
 ];
 
-const sampleInvoices = [
-  {
-    id: 1,
-    receiptId: "INV-REC-2024-001",
-    invoiceNumber: "INV-001-2024",
-    vendorName: "شركة التقنيات المتقدمة",
-    totalAmount: 15750.00,
-    status: "approved",
-    invoiceDate: "2024-01-15",
-    dueDate: "2024-02-14",
-    category: "خدمات تقنية"
-  },
-  {
-    id: 2,
-    receiptId: "INV-REC-2024-002",
-    invoiceNumber: "INV-002-2024",
-    vendorName: "Advanced Solutions Ltd",
-    totalAmount: 8900.00,
-    status: "pending",
-    invoiceDate: "2024-01-16",
-    dueDate: "2024-02-15",
-    category: "استشارات"
-  },
-  {
-    id: 3,
-    receiptId: "INV-REC-2024-003",
-    invoiceNumber: "INV-003-2024",
-    vendorName: "مؤسسة الخدمات الشاملة",
-    totalAmount: 12300.00,
-    status: "review",
-    invoiceDate: "2024-01-14",
-    dueDate: "2024-02-13",
-    category: "صيانة"
-  }
-];
+const sampleInvoices: any[] = [];
 
 export default function InvoiceReceiptPage() {
   const { t, isRTL } = useLanguage();
@@ -509,41 +475,48 @@ export default function InvoiceReceiptPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 sm:space-y-4">
-              {sampleInvoices.map((invoice) => (
-                <div key={invoice.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
-                  {getStatusIcon(invoice.status)}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-xs sm:text-sm truncate">
-                      {invoice.receiptId}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {invoice.invoiceNumber}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {isMobile ? invoice.vendorName.substring(0, 20) + '...' : invoice.vendorName}
-                    </p>
-                    <div className="flex items-center gap-2 mt-2">
-                      {getStatusBadge(invoice.status)}
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-xs sm:text-sm font-semibold text-primary">
-                        {formatCurrency(invoice.totalAmount, "ILS", "ar")}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {invoice.invoiceDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
-                      <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
-                      <Download className="h-3 w-3 sm:h-4 sm:w-4" />
-                    </Button>
-                  </div>
+              {sampleInvoices.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <p>لا توجد فواتير سابقة</p>
+                  <p className="text-sm">No previous invoices</p>
                 </div>
-              ))}
+              ) : (
+                sampleInvoices.map((invoice) => (
+                  <div key={invoice.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-lg">
+                    {getStatusIcon(invoice.status)}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-xs sm:text-sm truncate">
+                        {invoice.receiptId}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {invoice.invoiceNumber}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {isMobile ? invoice.vendorName.substring(0, 20) + '...' : invoice.vendorName}
+                      </p>
+                      <div className="flex items-center gap-2 mt-2">
+                        {getStatusBadge(invoice.status)}
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs sm:text-sm font-semibold text-primary">
+                          {formatCurrency(invoice.totalAmount, "ILS", "ar")}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {invoice.invoiceDate}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
+                        <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="mobile-button p-1 sm:p-2">
+                        <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              )}
             </CardContent>
           </Card>
 

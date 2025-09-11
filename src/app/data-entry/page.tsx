@@ -55,41 +55,7 @@ const documentCategories = [
   "أخرى - Others"
 ];
 
-const sampleDocuments: Document[] = [
-  {
-    id: 1,
-    title: "عقد الخدمة الأساسي",
-    description: "عقد تقديم الخدمات التقنية للعميل",
-    category: "عقود",
-    fileType: "PDF",
-    size: "2.3 MB",
-    uploadedAt: "2024-01-15",
-    tags: ["عقد", "خدمات", "تقني"],
-    status: "active"
-  },
-  {
-    id: 2,
-    title: "Financial Report Q1",
-    description: "Quarterly financial summary and analysis",
-    category: "تقارير",
-    fileType: "Excel",
-    size: "1.8 MB",
-    uploadedAt: "2024-01-14",
-    tags: ["مالي", "تقرير", "ربعي"],
-    status: "active"
-  },
-  {
-    id: 3,
-    title: "مراسلة العميل - Project Updates",
-    description: "Monthly project progress communication",
-    category: "مراسلات",
-    fileType: "Word",
-    size: "650 KB",
-    uploadedAt: "2024-01-13",
-    tags: ["مراسلة", "مشروع", "تحديث"],
-    status: "pending"
-  }
-];
+const sampleDocuments: Document[] = [];
 
 export default function DataEntryPage() {
   const { t, isRTL } = useLanguage();
